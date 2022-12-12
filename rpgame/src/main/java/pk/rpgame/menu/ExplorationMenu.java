@@ -31,6 +31,7 @@ public class ExplorationMenu implements IMenu {
         break;
       case 5:
         // menu.showMenu();
+        break;
       default:
         System.out.println("Użyj poprawnego klawisza!");
     }
