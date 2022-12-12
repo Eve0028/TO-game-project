@@ -2,7 +2,7 @@ package pk.rpgame.menu;
 
 import java.util.Scanner;
 
-public class FightMenu implements Menu {
+public class FightMenu implements IMenu {
   public void showMenu() {
     System.out.println("1. Użyj broni");
     System.out.println("2. Użyj eliksiru");
