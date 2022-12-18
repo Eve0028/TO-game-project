@@ -1,4 +1,4 @@
-package pk.rpgame.model.state;
+package pk.rpgame.model.living.state;
 
 public class FullHp extends HealthStatus {
     @Override

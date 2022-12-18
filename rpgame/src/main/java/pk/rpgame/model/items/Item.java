@@ -1,6 +1,8 @@
-package pk.rpgame.model;
+package pk.rpgame.model.items;
 
-abstract class Item extends WorldEntity {
+import pk.rpgame.model.WorldEntity;
+
+public abstract class Item extends WorldEntity {
     public Item(String name) {
         super(name);
     }

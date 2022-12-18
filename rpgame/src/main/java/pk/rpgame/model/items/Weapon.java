@@ -1,4 +1,4 @@
-package pk.rpgame.model;
+package pk.rpgame.model.items;
 
 // TODO:
 // Fill class

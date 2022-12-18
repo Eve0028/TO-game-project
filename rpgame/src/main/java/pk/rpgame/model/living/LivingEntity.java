@@ -1,6 +1,9 @@
-package pk.rpgame.model;
+package pk.rpgame.model.living;
 
-import pk.rpgame.model.state.HealthStatus;
+import pk.rpgame.model.items.Item;
+import pk.rpgame.model.WorldEntity;
+import pk.rpgame.model.items.UsableItem;
+import pk.rpgame.model.living.state.HealthStatus;
 
 import java.util.List;
 
@@ -8,16 +11,19 @@ public abstract class LivingEntity extends WorldEntity {
     private int level;
     private double strength;
     private double health;
+    private double maxHealth;
 
     private List<Item> items;
     // private double defense;
     private HealthStatus liveState;
 
-    public LivingEntity(String name, int level, double strength, double health, List<Item> items, HealthStatus liveState) {
+    public LivingEntity(String name, int level, double strength, double health, double maxHealth, List<Item> items, HealthStatus liveState) {
         super(name);
         this.level = level;
         this.strength = strength;
+        // We can always render an injured LivingEntity
         this.health = health;
+        this.maxHealth = maxHealth;
         // this.defense = defense;
         this.items = items;
         this.liveState = liveState;
@@ -26,6 +32,10 @@ public abstract class LivingEntity extends WorldEntity {
     public abstract double dealDamage();
 
     public abstract void receiveDamage(double damage);
+
+    public void useItem(UsableItem item) {
+        item.use(this);
+    }
 
     public int getLevel() {
         return level;
@@ -48,7 +58,19 @@ public abstract class LivingEntity extends WorldEntity {
     }
 
     public void setHealth(double health) {
+        if (health > this.maxHealth) {
+            this.health = maxHealth;
+            return;
+        }
         this.health = health;
+    }
+
+    public double getMaxHealth() {
+        return maxHealth;
+    }
+
+    public void setMaxHealth(double maxHealth) {
+        this.maxHealth = maxHealth;
     }
 
     public List<Item> getItems() {
