@@ -1,6 +1,6 @@
-package pk.rpgame.model.state;
+package pk.rpgame.model.living.state;
 
-import pk.rpgame.model.LivingEntity;
+import pk.rpgame.model.living.LivingEntity;
 
 // TODO:
 // Create all statuses

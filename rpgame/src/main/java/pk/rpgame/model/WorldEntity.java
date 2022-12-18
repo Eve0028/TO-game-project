@@ -1,6 +1,6 @@
 package pk.rpgame.model;
 
-abstract class WorldEntity {
+public abstract class WorldEntity {
     private String name;
 
     public WorldEntity(String name) {
