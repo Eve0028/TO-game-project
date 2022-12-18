@@ -4,18 +4,17 @@ import pk.rpgame.Visitor;
 import pk.rpgame.model.living.LivingEntity;
 import pk.rpgame.model.state.RoomState;
 
-import java.awt.*;
 import java.util.List;
 
 public class Room extends WorldEntity {
     private List<LivingEntity> creatures;
 
     // Is this good approach to orient rooms on the map?
-    private Point locationOnMap;
+    private IntPoint locationOnMap;
     private List<Room> nearestRooms;
     private RoomState state;
 
-    public Room(String name, List<LivingEntity> creatures, Point locationOnMap, List<Room> nearestRooms, RoomState state) {
+    public Room(String name, List<LivingEntity> creatures, IntPoint locationOnMap, List<Room> nearestRooms, RoomState state) {
         super(name);
         this.locationOnMap = locationOnMap;
         this.creatures = creatures;
@@ -51,11 +50,11 @@ public class Room extends WorldEntity {
         this.creatures = creatures;
     }
 
-    public Point getLocationOnMap() {
+    public IntPoint getLocationOnMap() {
         return locationOnMap;
     }
 
-    public void setLocationOnMap(Point locationOnMap) {
+    public void setLocationOnMap(IntPoint locationOnMap) {
         this.locationOnMap = locationOnMap;
     }
 

@@ -11,7 +11,7 @@ public enum RoomColor {
         this.colorStr = colorStr;
     }
 
-    public String getUrl() {
+    public String getColor() {
         return colorStr;
     }
 }
