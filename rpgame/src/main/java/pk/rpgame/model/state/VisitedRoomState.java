@@ -8,10 +8,10 @@ public class VisitedRoomState extends RoomState {
         super(room);
     }
 
-    @Override
-    public RoomColor getColorOnMap() {
-        return RoomColor.BLACK;
-    }
+//    @Override
+//    public RoomColor getColorOnMap() {
+//        return RoomColor.BLACK;
+//    }
 
     @Override
     public void enterRoom() {

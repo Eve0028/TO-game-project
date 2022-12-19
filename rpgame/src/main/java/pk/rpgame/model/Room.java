@@ -4,6 +4,7 @@ import pk.rpgame.Visitor;
 import pk.rpgame.model.living.LivingEntity;
 import pk.rpgame.model.state.RoomState;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Room extends WorldEntity {
@@ -22,6 +23,18 @@ public class Room extends WorldEntity {
         this.state = state;
     }
 
+    public Room(String name, List<LivingEntity> creatures, IntPoint locationOnMap, RoomState state) {
+        super(name);
+        this.locationOnMap = locationOnMap;
+        this.creatures = creatures;
+        this.nearestRooms = new ArrayList<>();
+        this.state = state;
+    }
+
+    public void addNearRoom(Room nearRoom) {
+        this.nearestRooms.add(nearRoom);
+    }
+
     public void changeState(RoomState state) {
         this.state = state;
     }
@@ -38,7 +51,7 @@ public class Room extends WorldEntity {
         state.exitRoom();
     }
 
-    public void accept(Visitor visitor){
+    public void accept(Visitor visitor) {
         visitor.visitRoom(this);
     }
 

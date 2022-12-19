@@ -1,13 +1,38 @@
 package pk.rpgame.model;
 
+import pk.rpgame.MapListener;
+import pk.rpgame.view.Map;
+
 import java.util.List;
 
 public class LevelMap extends WorldEntity {
     private List<Room> rooms;
+    private List<MapListener> listeners;
 
     public LevelMap(String name, List<Room> rooms) {
         super(name);
         this.rooms = rooms;
+    }
+
+    public void changeRooms(Room exitRoom, Room enterRoom) {
+        exitRoom.exitRoom();
+        enterRoom.enterRoom();
+        notify(exitRoom);
+        notify(enterRoom);
+    }
+
+    public void subscribe(MapListener listener) {
+        listeners.add(listener);
+    }
+
+    public void unsubscribe(MapListener listener) {
+        listeners.remove(listener);
+    }
+
+    public void notify(Room changedRoom) {
+        for(MapListener listener : this.listeners){
+            listener.update(changedRoom);
+        }
     }
 
     public List<Room> getRooms() {

@@ -9,7 +9,7 @@ public abstract class RoomState {
         this.room = room;
     }
 
-    public abstract RoomColor getColorOnMap();
+    // public abstract RoomColor getColorOnMap();
     public abstract void enterRoom();
     public abstract void exitRoom();
 }
