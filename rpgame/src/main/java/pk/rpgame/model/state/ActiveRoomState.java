@@ -8,10 +8,10 @@ public class ActiveRoomState extends RoomState {
         super(room);
     }
 
-    @Override
-    public RoomColor getColorOnMap() {
-        return RoomColor.RED;
-    }
+//    @Override
+//    public RoomColor getColorOnMap() {
+//        return RoomColor.RED;
+//    }
 
     @Override
     public void enterRoom() {}

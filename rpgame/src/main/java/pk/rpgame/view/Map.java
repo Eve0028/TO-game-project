@@ -3,40 +3,66 @@ package pk.rpgame.view;
 //TODO
 // Should be added to ExploreView
 
+import pk.rpgame.MapListener;
 import pk.rpgame.model.IntPoint;
 import pk.rpgame.model.LevelMap;
 import pk.rpgame.model.Room;
-import pk.rpgame.model.state.RoomColor;
+import pk.rpgame.model.state.ActiveRoomState;
+import pk.rpgame.model.state.UnvisitedRoomState;
+import pk.rpgame.model.state.VisitedRoomState;
 
-public class Map {
+import java.util.Hashtable;
+
+public class Map implements MapListener {
     private final int rowsCount;
     private final int columnsCount;
     private LevelMap lvMap;
+    private final Hashtable<IntPoint, RoomVisualisation> mapToPrint;
+    private static final String resetColor = "\\u001B[0m";
 
     public Map(LevelMap levelMap, int rowsCount, int columnsCount) {
         this.rowsCount = rowsCount;
         this.columnsCount = columnsCount;
         this.lvMap = levelMap;
+        this.mapToPrint = new Hashtable<>();
+
+        for (int i = 0; i < rowsCount; i += 1) {
+            for (int j = 0; j < rowsCount; j += 1) {
+                IntPoint point = new IntPoint(i, j);
+                Room findRoom = lvMap.getRooms().stream()
+                        .filter(room -> point
+                                .equals(room.getLocationOnMap())).findAny().orElse(null);
+
+                if (findRoom == null) {
+                    mapToPrint.put(point, RoomVisualisation.WALL);
+                } else {
+                    mapToPrint.put(point, getRoomType(findRoom));
+                }
+            }
+        }
     }
 
-    //TODO
-    // It will be better when the generator will be in the constructor
-    // And only two rooms will be actualized when Hero go to another room
+    private RoomVisualisation getRoomType(Room room) {
+        if (room.getState().getClass() == ActiveRoomState.class) {
+            return RoomVisualisation.ACTIVE;
+        } else if (room.getState().getClass() == UnvisitedRoomState.class) {
+            return RoomVisualisation.NOT_VISITED;
+        } else {
+            return RoomVisualisation.VISITED;
+        }
+    }
+
+    @Override
+    public void update(Room changedRoom) {
+        mapToPrint.put(changedRoom.getLocationOnMap(), getRoomType(changedRoom));
+    }
+
     public String show() {
         StringBuilder createdMap = new StringBuilder();
         for (int i = 0; i < rowsCount; i += 1) {
             for (int j = 0; j < rowsCount; j += 1) {
-                int finalI = i;
-                int finalJ = j;
-                Room findRoom = lvMap.getRooms().stream()
-                        .filter(room -> new IntPoint(finalI, finalJ)
-                                .equals(room.getLocationOnMap())).findAny().orElse(null);
-                if (findRoom != null) {
-                    String color = findRoom.getState().getColorOnMap().getColor();
-                    createdMap.append(color).append("o").append(RoomColor.BLACK.getColor());
-                } else {
-                    createdMap.append(RoomColor.BLACK.getColor()).append("#");
-                }
+                RoomVisualisation printRoom = mapToPrint.get(new IntPoint(i, j));
+                createdMap.append(printRoom.getColor()).append(printRoom.getChar()).append(Map.resetColor);
             }
             createdMap.append('\n');
         }
