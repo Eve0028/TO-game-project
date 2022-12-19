@@ -3,15 +3,17 @@ package pk.rpgame.model;
 import pk.rpgame.MapListener;
 import pk.rpgame.view.Map;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class LevelMap extends WorldEntity {
     private List<Room> rooms;
-    private List<MapListener> listeners;
+    private final List<MapListener> listeners;
 
     public LevelMap(String name, List<Room> rooms) {
         super(name);
         this.rooms = rooms;
+        this.listeners = new LinkedList<>();
     }
 
     public void changeRooms(Room exitRoom, Room enterRoom) {

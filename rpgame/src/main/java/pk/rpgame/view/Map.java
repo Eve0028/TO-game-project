@@ -9,22 +9,22 @@ import pk.rpgame.model.LevelMap;
 import pk.rpgame.model.Room;
 import pk.rpgame.model.state.ActiveRoomState;
 import pk.rpgame.model.state.UnvisitedRoomState;
-import pk.rpgame.model.state.VisitedRoomState;
 
-import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.TreeMap;
 
 public class Map implements MapListener {
     private final int rowsCount;
     private final int columnsCount;
     private LevelMap lvMap;
-    private final Hashtable<IntPoint, RoomVisualisation> mapToPrint;
-    private static final String resetColor = "\\u001B[0m";
+    private final TreeMap<IntPoint, RoomVisualisation> mapToPrint;
+    private static final String resetColor = "\u001B[0m";
 
     public Map(LevelMap levelMap, int rowsCount, int columnsCount) {
         this.rowsCount = rowsCount;
         this.columnsCount = columnsCount;
         this.lvMap = levelMap;
-        this.mapToPrint = new Hashtable<>();
+        this.mapToPrint = new TreeMap<>();
 
         for (int i = 0; i < rowsCount; i += 1) {
             for (int j = 0; j < rowsCount; j += 1) {
@@ -57,16 +57,27 @@ public class Map implements MapListener {
         mapToPrint.put(changedRoom.getLocationOnMap(), getRoomType(changedRoom));
     }
 
-    public String show() {
-        StringBuilder createdMap = new StringBuilder();
+    public void show() {
+        int space = 1;
+        Iterator<RoomVisualisation> iterator = mapToPrint.values().iterator();
+        String horizontalLine = "-".repeat((space * 2 + 2) * columnsCount + 1);
+        // System.out.println(horizontalLine);
+
         for (int i = 0; i < rowsCount; i += 1) {
             for (int j = 0; j < rowsCount; j += 1) {
-                RoomVisualisation printRoom = mapToPrint.get(new IntPoint(i, j));
-                createdMap.append(printRoom.getColor()).append(printRoom.getChar()).append(Map.resetColor);
+                RoomVisualisation printRoom = iterator.next();
+
+                System.out.print("|");
+                System.out.print(printRoom.getColor());
+                System.out.printf("%-" + space + "s", "");
+                System.out.print(printRoom.getChar());
+                System.out.printf("%" + space  + "s", "");
+                System.out.print(Map.resetColor);
             }
-            createdMap.append('\n');
+            System.out.print("|\n");
+            // System.out.println(horizontalLine);
         }
-        return createdMap.toString();
+        System.out.print("\n");
     }
 
     public int getRowsCount() {
