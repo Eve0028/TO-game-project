@@ -1,34 +1,40 @@
 package pk.rpgame.model;
 
 import pk.rpgame.Visitor;
+import pk.rpgame.model.items.Item;
 import pk.rpgame.model.living.LivingEntity;
 import pk.rpgame.model.state.RoomState;
+import pk.rpgame.model.state.UnvisitedRoomState;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Room extends WorldEntity {
     private List<LivingEntity> creatures;
+    private List<Item> items;
 
     // Is this good approach to orient rooms on the map?
     private IntPoint locationOnMap;
     private List<Room> nearestRooms;
     private RoomState state;
 
-    public Room(String name, List<LivingEntity> creatures, IntPoint locationOnMap, List<Room> nearestRooms, RoomState state) {
+    public Room(String name, List<LivingEntity> creatures, List<Item> items, IntPoint locationOnMap,
+                List<Room> nearestRooms) {
         super(name);
         this.locationOnMap = locationOnMap;
         this.creatures = creatures;
+        this.items = items;
         this.nearestRooms = nearestRooms;
-        this.state = state;
+        this.state = new UnvisitedRoomState(this);
     }
 
-    public Room(String name, List<LivingEntity> creatures, IntPoint locationOnMap, RoomState state) {
+    public Room(String name, List<LivingEntity> creatures, List<Item> items, IntPoint locationOnMap) {
         super(name);
         this.locationOnMap = locationOnMap;
         this.creatures = creatures;
+        this.items = items;
         this.nearestRooms = new ArrayList<>();
-        this.state = state;
+        this.state = new UnvisitedRoomState(this);
     }
 
     public void addNearRoom(Room nearRoom) {
@@ -77,5 +83,17 @@ public class Room extends WorldEntity {
 
     public void setNearestRooms(List<Room> nearestRooms) {
         this.nearestRooms = nearestRooms;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public void setState(RoomState state) {
+        this.state = state;
     }
 }

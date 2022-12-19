@@ -36,4 +36,17 @@ public class IntPoint implements Comparable<IntPoint> {
                 .thenComparing(IntPoint::getY)
                 .compare(this, o);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        IntPoint point = (IntPoint) o;
+        return x == point.getX() && y == point.getY();
+    }
+
+    @Override
+    public String toString() {
+        return "[" + getX() + ", " + getY() + "]";
+    }
 }
