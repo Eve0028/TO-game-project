@@ -3,7 +3,7 @@ package pk.rpgame.model.living.state;
 public class FullHp extends HealthStatus {
     @Override
     public String getDescription() {
-        return null;
+        return "in full strength";
     }
 
     @Override
@@ -14,5 +14,10 @@ public class FullHp extends HealthStatus {
     @Override
     public double defense() {
         return 0;
+    }
+
+    @Override
+    public String toString() {
+        return "FullHp";
     }
 }

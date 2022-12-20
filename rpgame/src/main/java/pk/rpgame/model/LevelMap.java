@@ -1,6 +1,7 @@
 package pk.rpgame.model;
 
 import pk.rpgame.MapListener;
+import pk.rpgame.Visitor;
 import pk.rpgame.view.Map;
 
 import java.util.LinkedList;
@@ -43,6 +44,11 @@ public class LevelMap extends WorldEntity {
 
     public void setRooms(List<Room> rooms) {
         this.rooms = rooms;
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+
     }
 
     @Override

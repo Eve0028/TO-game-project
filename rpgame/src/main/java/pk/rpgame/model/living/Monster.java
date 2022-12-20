@@ -1,5 +1,6 @@
 package pk.rpgame.model.living;
 
+import pk.rpgame.Visitor;
 import pk.rpgame.model.items.Item;
 import pk.rpgame.model.living.state.HealthStatus;
 
@@ -26,8 +27,8 @@ public class Monster extends LivingEntity {
         this.setHealth(this.getHealth() - damage);
     }
 
-//    @Override
-//    public String toString() {
-//        return super.toString();
-//    }
+    @Override
+    public void accept(Visitor visitor) {
+
+    }
 }

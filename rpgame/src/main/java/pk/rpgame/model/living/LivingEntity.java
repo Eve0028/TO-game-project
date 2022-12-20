@@ -14,7 +14,6 @@ public abstract class LivingEntity extends WorldEntity {
     private double maxHealth;
 
     private List<Item> items;
-    // private double defense;
     private HealthStatus liveState;
 
     public LivingEntity(String name, int level, double strength, double health, double maxHealth, List<Item> items, HealthStatus liveState) {
@@ -24,7 +23,6 @@ public abstract class LivingEntity extends WorldEntity {
         // We can always render an injured LivingEntity
         this.health = health;
         this.maxHealth = maxHealth;
-        // this.defense = defense;
         this.items = items;
         this.liveState = liveState;
     }
@@ -81,14 +79,6 @@ public abstract class LivingEntity extends WorldEntity {
         this.items = items;
     }
 
-//    public double getDefense() {
-//        return defense;
-//    }
-//
-//    public void setDefense(double defense) {
-//        this.defense = defense;
-//    }
-
     public HealthStatus getLiveState() {
         return liveState;
     }
@@ -99,9 +89,12 @@ public abstract class LivingEntity extends WorldEntity {
 
     @Override
     public String toString() {
-        return super.toString()
-                + "\nstrength: " + this.getStrength()
-                + "\nhealth: " + this.getHealth();
-        // + "\ndefense: " + defense;
+        return super.toString() + " ["
+                + "level: " + this.getLevel() + ", "
+                + "strength: " + this.getStrength() + ", "
+                + "health: " + this.getHealth() + ", "
+                + "maxHealth: " + this.getMaxHealth() + ", "
+                + "liveState: " + this.getLiveState() + ", "
+                + "items: (" + this.getItems() + "), ";
     }
 }
