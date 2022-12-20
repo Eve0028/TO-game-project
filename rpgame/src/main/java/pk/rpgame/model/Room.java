@@ -68,6 +68,14 @@ public class Room extends WorldEntity {
         this.creatures = creatures;
     }
 
+    public void addCreature(LivingEntity creature) {
+        this.creatures.add(creature);
+    }
+
+    public void removeCreature(LivingEntity creature) {
+        this.creatures.remove(creature);
+    }
+
     public IntPoint getLocationOnMap() {
         return locationOnMap;
     }

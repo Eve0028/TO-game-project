@@ -79,6 +79,14 @@ public abstract class LivingEntity extends WorldEntity {
         this.items = items;
     }
 
+    public void addItem(Item item) {
+        this.items.add(item);
+    }
+
+    public void removeItem(Item item) {
+        this.items.remove(item);
+    }
+
     public HealthStatus getLiveState() {
         return liveState;
     }
