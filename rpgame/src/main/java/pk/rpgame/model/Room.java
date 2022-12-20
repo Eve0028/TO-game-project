@@ -13,7 +13,6 @@ public class Room extends WorldEntity {
     private List<LivingEntity> creatures;
     private List<Item> items;
 
-    // Is this good approach to orient rooms on the map?
     private IntPoint locationOnMap;
     private List<Room> nearestRooms;
     private RoomState state;

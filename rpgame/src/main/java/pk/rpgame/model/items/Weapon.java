@@ -1,7 +1,6 @@
 package pk.rpgame.model.items;
 
-// TODO:
-// Fill class
+import pk.rpgame.Visitor;
 
 public class Weapon extends Item{
     private double attack;
@@ -20,8 +19,13 @@ public class Weapon extends Item{
     }
 
     @Override
+    public void accept(Visitor visitor) {
+
+    }
+
+    @Override
     public String toString() {
         return super.toString()
-                + "\nattack damage: " + this.getAttack();
+                + " [attack: " + this.getAttack() + "]";
     }
 }

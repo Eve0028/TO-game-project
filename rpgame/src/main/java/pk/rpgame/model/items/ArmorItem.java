@@ -1,5 +1,7 @@
 package pk.rpgame.model.items;
 
+import pk.rpgame.Visitor;
+
 public class ArmorItem extends Item {
     private double defense;
 
@@ -17,8 +19,13 @@ public class ArmorItem extends Item {
     }
 
     @Override
+    public void accept(Visitor visitor) {
+
+    }
+
+    @Override
     public String toString() {
         return super.toString()
-                + "\narmor: " + this.getDefense();
+                + " [armor: " + this.getDefense() + "]";
     }
 }

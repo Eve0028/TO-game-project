@@ -4,7 +4,7 @@ public enum RoomVisualisation {
     ACTIVE("\u001B[41m", 'x'), // Red color
     NOT_VISITED("\u001B[40m", '#'), // Gray color
     VISITED("\u001B[44m", 'o'), // Blue color
-    WALL("\u001B[40m", '#');
+    WALL("\u001B[40m", '#'); // Gray color
 
     private final String colorStr;
     private final Character charRoom;

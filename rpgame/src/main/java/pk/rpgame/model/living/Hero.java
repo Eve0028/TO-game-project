@@ -1,5 +1,6 @@
 package pk.rpgame.model.living;
 
+import pk.rpgame.Visitor;
 import pk.rpgame.model.items.Item;
 import pk.rpgame.model.living.state.HealthStatus;
 
@@ -58,10 +59,15 @@ public class Hero extends LivingEntity {
     }
 
     @Override
+    public void accept(Visitor visitor) {
+
+    }
+
+    @Override
     public String toString() {
         return super.toString()
-                + "\ndefense: " + this.getDefense()
-                + "\narmor: " + this.getArmor()
-                + "\nstamina: " + this.getStamina();
+                + "defense: " + this.getDefense() + ", "
+                + "armor: " + this.getArmor() + ", "
+                + "stamina: " + this.getStamina() + "]";
     }
 }

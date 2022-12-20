@@ -1,5 +1,6 @@
 package pk.rpgame.model.items;
 
+import pk.rpgame.Visitor;
 import pk.rpgame.model.living.LivingEntity;
 
 public class Potion extends UsableItem {
@@ -17,6 +18,11 @@ public class Potion extends UsableItem {
     @Override
     public void use(LivingEntity entity) {
         entity.setHealth(entity.getHealth() + this.health);
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+
     }
 
     @Override
