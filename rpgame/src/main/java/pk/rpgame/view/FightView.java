@@ -26,7 +26,7 @@ public class FightView {
   }
 
   public void printEnemies(List<Monster> monsters) {
-    System.out.println("Czeka cię walka z następującymi przeciwnikami: ");
+    System.out.println("W pokoju znajdują się następujący przeciwnicy: ");
     for (Monster monster : monsters) {
       int i = 1;
       System.out.println(i + ". " + monster.getName() + ", " + monster.getHealth() + " pkt życia");
@@ -36,6 +36,21 @@ public class FightView {
 
   public void printHeroHealth(Hero hero) {
     System.out.println("Posiadasz obecnie " + hero.getHealth() + " pkt życia");
+  }
+
+  public int askWhichMonsterToAttack(List<Monster> monsters) {
+    printEnemies(monsters);
+    System.out.println("Wybierz potwora, którego chcesz zaatakować: ");
+    int action = getAction();
+    while (true) {
+      if (action > monsters.size() || action < 1) {
+        System.out.println("Wybierz odpowiedni numer!");
+        action = getAction();
+      } else {
+        break;
+      }
+    }
+    return action;
   }
 
   public void showMenu() {
