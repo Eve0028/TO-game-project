@@ -27,25 +27,25 @@ public class FightView {
   }
 
   public void printEnemies(List<Monster> monsters) {
-    System.out.println("W pokoju znajdują się następujący przeciwnicy: ");
+    System.out.println("These are the monsters that guard this room: ");
     for (Monster monster : monsters) {
       int i = 1;
-      System.out.println(i + ". " + monster.getName() + ", " + monster.getHealth() + " pkt życia");
+      System.out.println(i + ". " + monster.getName() + ", " + monster.getHealth() + " health points");
       i++;
     }
   }
 
   public void printHeroHealth(Hero hero) {
-    System.out.println("Posiadasz obecnie " + hero.getHealth() + " pkt życia");
+    System.out.println("You currently have " + hero.getHealth() + " health points");
   }
 
   public int getMonsterChoice(List<Monster> monsters) {
     printEnemies(monsters);
-    System.out.print("Wybierz numer potwora, którego chcesz zaatakować: ");
+    System.out.print("Choose number of the monster you wish to attack: ");
     int action = getAction();
     while (true) {
       if (action > monsters.size() || action < 1) {
-        System.out.println("Wybierz odpowiedni numer!");
+        System.out.println("Pick a correct number!");
         action = getAction();
       } else {
         break;
@@ -55,17 +55,17 @@ public class FightView {
   }
 
   public int getItemChoice(List<Item> items) {
-    System.out.println("Posiadasz następujące przedmioty: ");
+    System.out.println("Here are the items in your inventory: ");
     for (Item item : items) {
       int i = 1;
       System.out.println(i + ". " + item.getName());
       i++;
     }
-    System.out.print("Wybierz numer przedmiotu, którego chcesz użyć: ");
+    System.out.print("Choose number of the item you wish yo use: ");
     int action = getAction();
     while (true) {
       if (action > items.size() || action < 1) {
-        System.out.println("Wybierz odpowiedni numer!");
+        System.out.println("Pick a correct number!");
         action = getAction();
       } else {
         break;
@@ -75,14 +75,14 @@ public class FightView {
   }
 
   public void printAttackResult(String attackerName, String deffenderName, double damage) {
-    System.out.println(attackerName + " zaatakował " + deffenderName + " zadając mu " + damage + " obrażeń.");
+    System.out.println(attackerName + " attacked " + deffenderName + " dealing " + damage + " damage.");
   }
 
   public void showMenu() {
-    System.out.println("1. Atak");
-    System.out.println("2. Obrona");
-    System.out.println("3. Użyj przedmiotu");
-    System.out.println("4. Ucieczka");
+    System.out.println("1. Attack");
+    System.out.println("2. Defend");
+    System.out.println("3. Use an item");
+    System.out.println("4. Escape");
     int action = getAction();
     listener.onActionClick(action);
   }
