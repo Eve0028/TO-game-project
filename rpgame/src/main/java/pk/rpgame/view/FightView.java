@@ -3,7 +3,7 @@ package pk.rpgame.view;
 import java.util.List;
 import java.util.Scanner;
 
-import pk.rpgame.model.items.Item;
+import pk.rpgame.model.items.UsableItem;
 import pk.rpgame.model.living.Hero;
 import pk.rpgame.model.living.Monster;
 
@@ -54,9 +54,9 @@ public class FightView {
     return action;
   }
 
-  public int getItemChoice(List<Item> items) {
+  public int getItemChoice(List<UsableItem> items) {
     System.out.println("Here are the items in your inventory: ");
-    for (Item item : items) {
+    for (UsableItem item : items) {
       int i = 1;
       System.out.println(i + ". " + item.getName());
       i++;
