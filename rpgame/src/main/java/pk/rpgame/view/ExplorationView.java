@@ -40,8 +40,8 @@ public class ExplorationView {
 
   public int getRoomChoice(List<Room> nearestRooms) {
     System.out.println("Rooms available to visit: ");
+    int i = 1;
     for (Room room : nearestRooms) {
-      int i = 1;
       System.out.println(i + ". " + room.getName());
     }
     System.out.print("Pick number of the room you wish to go next: ");
