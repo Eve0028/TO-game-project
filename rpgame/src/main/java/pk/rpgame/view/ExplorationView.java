@@ -38,8 +38,19 @@ public class ExplorationView {
     return action;
   }
 
-  public void printNearestRooms(List<Room> nearestRooms) {
+  public int getRoomChoice(List<Room> nearestRooms) {
     System.out.println("Możliwe pomieszczenia, do których możesz się udać: " + nearestRooms);
+    System.out.print("Wybierz numer pokoju, do którego chcesz przejść: ");
+    int action = getAction();
+    while (true) {
+      if (action < 1 || action > nearestRooms.size()) {
+        System.out.println("Wybierz odpowiedni numer pokoju!");
+        action = getAction();
+      } else {
+        break;
+      }
+    }
+    return action;
   }
 
   public PickUpItems pickUpItems() {
