@@ -74,6 +74,10 @@ public class FightView {
     return action;
   }
 
+  public void printAttackResult(String attackerName, String deffenderName, double damage) {
+    System.out.println(attackerName + " zaatakował " + deffenderName + " zadając mu " + damage + " obrażeń.");
+  }
+
   public void showMenu() {
     System.out.println("1. Atak");
     System.out.println("2. Obrona");
