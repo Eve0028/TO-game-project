@@ -3,6 +3,7 @@ package pk.rpgame.view;
 import java.util.List;
 import java.util.Scanner;
 
+import pk.rpgame.model.items.Item;
 import pk.rpgame.model.living.Hero;
 import pk.rpgame.model.living.Monster;
 
@@ -40,10 +41,30 @@ public class FightView {
 
   public int askWhichMonsterToAttack(List<Monster> monsters) {
     printEnemies(monsters);
-    System.out.println("Wybierz potwora, którego chcesz zaatakować: ");
+    System.out.print("Wybierz numer potwora, którego chcesz zaatakować: ");
     int action = getAction();
     while (true) {
       if (action > monsters.size() || action < 1) {
+        System.out.println("Wybierz odpowiedni numer!");
+        action = getAction();
+      } else {
+        break;
+      }
+    }
+    return action;
+  }
+
+  public int askWhichItemToUse(List<Item> items) {
+    System.out.println("Posiadasz następujące przedmioty: ");
+    for (Item item : items) {
+      int i = 1;
+      System.out.println(i + ". " + item.getName());
+      i++;
+    }
+    System.out.print("Wybierz numer przedmiotu, którego chcesz użyć: ");
+    int action = getAction();
+    while (true) {
+      if (action > items.size() || action < 1) {
         System.out.println("Wybierz odpowiedni numer!");
         action = getAction();
       } else {
