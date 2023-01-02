@@ -39,7 +39,7 @@ public class FightView {
     System.out.println("Posiadasz obecnie " + hero.getHealth() + " pkt życia");
   }
 
-  public int askWhichMonsterToAttack(List<Monster> monsters) {
+  public int getMonsterChoice(List<Monster> monsters) {
     printEnemies(monsters);
     System.out.print("Wybierz numer potwora, którego chcesz zaatakować: ");
     int action = getAction();
@@ -54,7 +54,7 @@ public class FightView {
     return action;
   }
 
-  public int askWhichItemToUse(List<Item> items) {
+  public int getItemChoice(List<Item> items) {
     System.out.println("Posiadasz następujące przedmioty: ");
     for (Item item : items) {
       int i = 1;
