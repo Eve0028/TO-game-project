@@ -17,9 +17,14 @@ public class ExplorationView {
 
     private MenuClickListener listener;
 
-    public void printRoomDescription(String roomName) {
-        System.out.println("Znajdujesz się w pomieszczeniu " + roomName);
-        System.out.println("W tym pokoju jesteś bezpieczny. Nie ma tu żadnych potworów.");
+    public void printRoomDescription(Room room) {
+        System.out.println("Znajdujesz się w pomieszczeniu " + room.getName());
+        if (room.getCreatures().isEmpty()) {
+            System.out.println("W tym pokoju jesteś bezpieczny. Nie ma tu żadnych potworów.");
+        } else {
+            System.out.println("W tym pokoju znajdują się potwory: " + room.getCreatures());
+            System.out.println("Za chwilę nastąpi walka!");
+        }
     }
 
     public void setListener(MenuClickListener listener) {
