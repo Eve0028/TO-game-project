@@ -18,12 +18,12 @@ public class ExplorationView {
   private MenuClickListener listener;
 
   public void printRoomDescription(Room room) {
-    System.out.println("Znajdujesz się w pomieszczeniu " + room.getName());
+    System.out.println("You are in a room called " + room.getName());
     if (room.getCreatures().isEmpty()) {
-      System.out.println("W tym pokoju jesteś bezpieczny. Nie ma tu żadnych potworów.");
+      System.out.println("You are safe in this room. There are no monsters here.");
     } else {
-      System.out.println("W tym pokoju znajdują się potwory: " + room.getCreatures());
-      System.out.println("Za chwilę nastąpi walka!");
+      System.out.println("There are several monsters in this room: " + room.getCreatures());
+      System.out.println("A fight will start soon!");
     }
   }
 
@@ -39,12 +39,16 @@ public class ExplorationView {
   }
 
   public int getRoomChoice(List<Room> nearestRooms) {
-    System.out.println("Możliwe pomieszczenia, do których możesz się udać: " + nearestRooms);
-    System.out.print("Wybierz numer pokoju, do którego chcesz przejść: ");
+    System.out.println("Rooms available to visit: ");
+    for (Room room : nearestRooms) {
+      int i = 1;
+      System.out.println(i + ". " + room.getName());
+    }
+    System.out.print("Pick number of the room you wish to go next: ");
     int action = getAction();
     while (true) {
       if (action < 1 || action > nearestRooms.size()) {
-        System.out.println("Wybierz odpowiedni numer pokoju!");
+        System.out.println("Pick a correct number!");
         action = getAction();
       } else {
         break;
@@ -55,9 +59,9 @@ public class ExplorationView {
 
   public PickUpItems pickUpItems() {
     System.out.println(
-        "Możesz podnieść znalezione przedmioty. Wybierz '1' aby je podnieść lub '0' aby nic nie robić.");
+        "You can pick up the item you found. Choose '1' to pick them or '0' to do nothing.");
     System.out.println(
-        "Podniesienie pancerza lub broni spowoduje upuszczenie aktualnie noszonych przedmiotów z tej kategorii");
+        "If you pick up a weapon or an armor, you will loose your current item of that category. Choose wisely!");
     int action = getAction();
     while (true) {
       if (action == 1) {
@@ -65,17 +69,17 @@ public class ExplorationView {
       } else if (action == 0) {
         return PickUpItems.DONT_PICK_UP;
       } else {
-        System.out.println("Wybierz właściwą cyfrę!");
+        System.out.println("Pick a correct number!");
       }
       action = getAction();
     }
   }
 
   public void showMenu() {
-    System.out.println("1. Eksploruj pomieszczenie");
-    System.out.println("2. Przejdź do następnego pokoju");
-    System.out.println("3. Pokaż mapę");
-    System.out.println("4. Pokaż menu");
+    System.out.println("1. Explore this room");
+    System.out.println("2. Go to the next room");
+    System.out.println("3. Show map");
+    System.out.println("4. Show menu");
     int action = getAction();
     listener.onActionClick(action);
   }
