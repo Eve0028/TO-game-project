@@ -28,8 +28,8 @@ public class FightView {
 
   public void printEnemies(List<Monster> monsters) {
     System.out.println("These are the monsters that guard this room: ");
+    int i = 1;
     for (Monster monster : monsters) {
-      int i = 1;
       System.out.println(i + ". " + monster.getName() + ", " + monster.getHealth() + " health points");
       i++;
     }
