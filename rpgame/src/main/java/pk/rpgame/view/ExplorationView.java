@@ -36,8 +36,10 @@ public class ExplorationView {
     }
 
     public PickUpItems pickUpItems() {
-        System.out.println("Możesz podnieść znalezione przedmioty. Wybierz '1' aby je podnieść lub '0' aby nic nie robić.");
-        System.out.println("Podniesienie pancerza lub broni spowoduje upuszczenie aktualnie noszonych przedmiotów z tej kategorii");
+        System.out.println(
+                "Możesz podnieść znalezione przedmioty. Wybierz '1' aby je podnieść lub '0' aby nic nie robić.");
+        System.out.println(
+                "Podniesienie pancerza lub broni spowoduje upuszczenie aktualnie noszonych przedmiotów z tej kategorii");
         int action = getAction();
         while (true) {
             if (action == 1) {
@@ -47,6 +49,7 @@ public class ExplorationView {
             } else {
                 System.out.println("Wybierz właściwą cyfrę!");
             }
+            action = getAction();
         }
     }
 
