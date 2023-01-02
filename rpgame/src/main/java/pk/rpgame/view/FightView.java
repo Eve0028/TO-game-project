@@ -54,6 +54,14 @@ public class FightView {
     return action;
   }
 
+  public void printMonsterDeath(String monsterName) {
+    System.out.println("Monster " + monsterName + " is dead");
+  }
+
+  public void heroDeath() {
+    System.out.println("YOU ARE DEAD");
+  }
+
   public int getItemChoice(List<UsableItem> items) {
     System.out.println("Here are the items in your inventory: ");
     for (UsableItem item : items) {
