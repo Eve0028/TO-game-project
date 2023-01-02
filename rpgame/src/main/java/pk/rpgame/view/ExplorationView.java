@@ -28,7 +28,9 @@ public class ExplorationView {
 
     private int getAction() {
         Scanner keyboard = new Scanner(System.in);
-        return keyboard.nextInt();
+        int action = keyboard.nextInt();
+        keyboard.close();
+        return action;
     }
 
     public void printNearestRooms(List<Room> nearestRooms) {
