@@ -43,6 +43,7 @@ public class ExplorationView {
     int i = 1;
     for (Room room : nearestRooms) {
       System.out.println(i + ". " + room.getName());
+      i++;
     }
     System.out.print("Pick number of the room you wish to go next: ");
     int action = getAction();
