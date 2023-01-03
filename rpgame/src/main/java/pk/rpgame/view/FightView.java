@@ -64,8 +64,8 @@ public class FightView {
 
   public int getItemChoice(List<UsableItem> items) {
     System.out.println("Here are the items in your inventory: ");
+    int i = 1;
     for (UsableItem item : items) {
-      int i = 1;
       System.out.println(i + ". " + item.getName());
       i++;
     }
