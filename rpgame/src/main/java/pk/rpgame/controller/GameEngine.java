@@ -3,6 +3,8 @@ package pk.rpgame.controller;
 import pk.rpgame.model.LevelMap;
 import pk.rpgame.model.Room;
 import pk.rpgame.model.builder.FirstLevelBuilder;
+import pk.rpgame.model.living.Hero;
+import pk.rpgame.view.ExplorationView;
 import pk.rpgame.view.Map;
 
 import java.util.List;
@@ -11,6 +13,9 @@ public class GameEngine {
     private Map mapVision;
     private LevelMap activeLevelMap;
     private Room activeRoom;
+
+    private ExplorationView explorationView;
+
 
     public GameEngine() throws Exception {
         // Initialization all object needed at the beginning of the game
