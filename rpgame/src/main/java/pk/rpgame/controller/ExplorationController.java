@@ -97,6 +97,8 @@ public class ExplorationController implements IController {
         explorationView.showMenu();
     }
 
-
+    public void showGeneralMenu(){
+        // make general menu controller
+    }
 
 }
