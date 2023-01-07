@@ -37,6 +37,10 @@ public class GeneralMenu{
   public void printMaxHealthMessage(){
     System.out.println("Max health");
   }
+
+  public void wrongChoice(){
+    System.out.println("Wrong choice!!");
+  }
   public void showMenu() {
     System.out.println("1. Show inventory");
     System.out.println("2. Use health potion");

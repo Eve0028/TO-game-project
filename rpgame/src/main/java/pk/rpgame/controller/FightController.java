@@ -55,7 +55,7 @@ public class FightController extends Controller implements MenuClickListener {
                 defend();
                 break;
             case 3:
-                useItem(); //problem
+                useItem();
                 break;
             case 4:
                 escape();

@@ -22,6 +22,8 @@ public class ExplorationController extends Controller implements MenuClickListen
     private LevelMap activeLevelMapController;
     private GameEngine gameEngineController;
 
+    private GeneralMenuController generalMenuHelp;
+
 
 
 
@@ -112,7 +114,8 @@ public class ExplorationController extends Controller implements MenuClickListen
     }
 
     public void showGeneralMenu(){
-        // make general menu controller
+            generalMenuHelp=new GeneralMenuController(heroControler,room,map,activeLevelMapController,gameEngineController);
+            generalMenuHelp.initView();
     }
 
 
