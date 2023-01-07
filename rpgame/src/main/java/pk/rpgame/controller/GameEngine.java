@@ -3,14 +3,20 @@ package pk.rpgame.controller;
 import pk.rpgame.model.LevelMap;
 import pk.rpgame.model.Room;
 import pk.rpgame.model.builder.FirstLevelBuilder;
+import pk.rpgame.model.living.Hero;
+import pk.rpgame.model.living.state.FullHp;
 import pk.rpgame.view.Map;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class GameEngine {
+public class GameEngine extends ControllerState {
     private Map mapVision;
     private LevelMap activeLevelMap;
     private Room activeRoom;
+    private Hero hero;
+
+
+    private Controller controllerState;
 
     public GameEngine() throws Exception {
         // Initialization all object needed at the beginning of the game
@@ -21,6 +27,8 @@ public class GameEngine {
         levelBuilder.setRooms();
         levelBuilder.setMonsters();
         levelBuilder.setMapItems();
+        hero = new Hero("Janek", 1, 2.5, 100, 100, 25, new ArrayList<>(), new FullHp(), 0, 15);
+
         activeLevelMap = levelBuilder.getLevelMap();
 
         // Set Hero in first Room
@@ -33,19 +41,23 @@ public class GameEngine {
 
         // Add mapVision to be updated about Room's state changes
         activeLevelMap.subscribe(mapVision);
+
     }
 
     public void startGame() throws Exception {
 
         // Visualise map on the screen
-        mapVision.show();
+
 
         // Get the nearest rooms from the room where Hero is currently located
-        List<Room> nearestRooms = activeRoom.getNearestRooms();
 
-        // Room travel test
-        int howManySteps = 0;
-        while (!nearestRooms.isEmpty() && howManySteps < 5) {
+        controllerState.initView();
+
+
+/*        // Room travel test
+        int howManySteps = 0;*/
+
+        /*while (!nearestRooms.isEmpty() && howManySteps < 5) {
             // Get last nearest room from the room where Hero is currently located
             Room nextRoom = nearestRooms.get(nearestRooms.size() - 1);
             // Put Hero in nextRoom
@@ -57,7 +69,11 @@ public class GameEngine {
             nearestRooms = activeRoom.getNearestRooms();
 
             howManySteps++;
-        }
+        }*/
+    }
+
+    public void changeStateControler(Controller controller){
+        this.controllerState=controller;
     }
 
 }

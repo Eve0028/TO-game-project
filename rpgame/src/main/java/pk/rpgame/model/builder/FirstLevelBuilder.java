@@ -70,11 +70,11 @@ public class FirstLevelBuilder implements LevelMapBuilder {
 
     @Override
     public void setMonsters() throws Exception {
-        for (Room room : this.roomList) {
-            for (int m = 0; m < 3; m++) {
+        /*for (Room room : this.roomList) {
+            for (int m = 0;m < 3; m++) {
                 room.addCreature(golemFactory.getObject());
             }
-        }
+        }*/
     }
 
     @Override

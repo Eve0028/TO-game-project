@@ -34,6 +34,9 @@ public class GeneralMenu{
   }
 
   public void printNothingMessageInInventory(){System.out.println("Your inventory is empty");}
+  public void printMaxHealthMessage(){
+    System.out.println("Max health");
+  }
   public void showMenu() {
     System.out.println("1. Show inventory");
     System.out.println("2. Use health potion");

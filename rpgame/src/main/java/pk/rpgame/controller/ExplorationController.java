@@ -4,13 +4,12 @@ import pk.rpgame.model.LevelMap;
 import pk.rpgame.model.Room;
 import pk.rpgame.model.items.ArmorItem;
 import pk.rpgame.model.items.Item;
-import pk.rpgame.model.items.Potion;
 import pk.rpgame.model.living.Hero;
 import pk.rpgame.view.*;
 
 import java.util.List;
 
-public class ExplorationController implements IController {
+public class ExplorationController extends Controller implements MenuClickListener{
 
 
     private static ExplorationView explorationView;
@@ -21,43 +20,51 @@ public class ExplorationController implements IController {
     private Hero heroControler;
 
     private LevelMap activeLevelMapController;
+    private GameEngine gameEngineController;
 
 
 
-    public ExplorationController(Hero hero,Map map, Room currentRoom,LevelMap activeLevelMap) {
+
+    public ExplorationController(Hero hero,Map map, Room currentRoom,LevelMap activeLevelMap,GameEngine gameEngine) {
+        super(gameEngine);
         this.explorationView = new ExplorationView();
         this.room = currentRoom;
         this.heroControler=hero;
         this.map=map;
         this.activeLevelMapController=activeLevelMap;
+
+
     }
 
+    public void setGameEngineController(GameEngine gameEngineController) {
+        this.gameEngineController = gameEngineController;
+    }
 
     @Override
     public void initView() {
         explorationView.printRoomDescription(room);
+        explorationView.setListener(this::onActionClick);
         explorationView.showMenu();
-        explorationView.setListener(new MenuClickListener() {
-            @Override
-            public void onActionClick(int action) {
-                switch (action){
-                    case 1:
-                            findItem();
-                            break;
-                    case 2:
-                            nextRoom();
-                            break;
-                    case 3:
-                            showMap();
-                            break;
-                    case 4:
-                            showGeneralMenu();
-                            break;
-                    default:
-                            explorationView.wrongChoice();
-                }
-            }
-        });
+    }
+
+    @Override
+    public void onActionClick(int num) {
+        switch (num){
+            case 1:
+                findItem();
+                break;
+            case 2:
+                nextRoom();
+                break;
+            case 3:
+                showMap();
+                break;
+            case 4:
+                showGeneralMenu();
+                break;
+            default:
+                explorationView.wrongChoice();
+        }
     }
 
     public  void findItem(){
@@ -70,14 +77,16 @@ public class ExplorationController implements IController {
             if(isPickedUp==PickUpItems.PICK_UP){
                 for (Item item:
                      itemList) {
-                    if( item.getClass()== Potion.class){
-                        heroControler.addItem(item);
-                    } else if (item.getClass()==ArmorItem.class) {
-                        heroControler.setArmor(((ArmorItem) item).getDefense());
-                    }else {
-                        //TODO
-                        // change weapon (class weapon does not use in hero class )
+                     if (item.getClass()==ArmorItem.class) {
+                        for (Item item2:
+                             heroControler.getItems()) {
+                            if (item2.getClass() == ArmorItem.class) {
+                                heroControler.removeItem(item2);
+                            }
+                        }
                     }
+
+                     heroControler.addItem(item);
                 }
             }else {
                     explorationView.showMenu();
@@ -92,8 +101,8 @@ public class ExplorationController implements IController {
         // new room for hero
         Room nextRoom=nearestRoom.get(nextDestination-1);
         activeLevelMapController.changeRooms(room,nextRoom);
-
-        explorationView.showMenu();
+        room=nextRoom;
+        //gameEngineController.changeStateControler();
     }
 
 
@@ -105,5 +114,6 @@ public class ExplorationController implements IController {
     public void showGeneralMenu(){
         // make general menu controller
     }
+
 
 }

@@ -4,17 +4,15 @@ import java.util.List;
 import java.util.Scanner;
 
 import pk.rpgame.model.Room;
-import pk.rpgame.model.items.UsableItem;
+import pk.rpgame.model.items.Item;
 import pk.rpgame.model.living.Hero;
-import pk.rpgame.model.living.Monster;
+import pk.rpgame.model.living.LivingEntity;
 
-interface FightClickListener {
-  void onActionClick(int num);
-}
+
 
 public class FightView {
 
-  private FightClickListener listener;
+  private MenuClickListener listener;
 
   public void printRoomDescription(Room room) {
     System.out.println("You are in a room called " + room.getName());
@@ -22,7 +20,7 @@ public class FightView {
       System.out.println("A fight will start soon!");
   }
 
-  public void setListener(FightClickListener listener) {
+  public void setListener(MenuClickListener listener) {
     this.listener = listener;
   }
 
@@ -34,10 +32,10 @@ public class FightView {
     return action;
   }
 
-  public void printEnemies(List<Monster> monsters) {
+  public void printEnemies(List<LivingEntity> monsters) {
     System.out.println("These are the monsters that guard this room: ");
     int i = 1;
-    for (Monster monster : monsters) {
+    for (LivingEntity monster : monsters) {
       System.out.println(i + ". " + monster.getName() + ", " + monster.getHealth() + " health points");
       i++;
     }
@@ -47,7 +45,7 @@ public class FightView {
     System.out.println("You currently have " + hero.getHealth() + " health points");
   }
 
-  public int getMonsterChoice(List<Monster> monsters) {
+  public int getMonsterChoice(List<LivingEntity> monsters) {
     printEnemies(monsters);
     System.out.print("Choose number of the monster you wish to attack: ");
     int action = getAction();
@@ -70,10 +68,10 @@ public class FightView {
     System.out.println("YOU ARE DEAD");
   }
 
-  public int getItemChoice(List<UsableItem> items) {
+  public int getItemChoice(List<Item> items) {
     System.out.println("Here are the items in your inventory: ");
     int i = 1;
-    for (UsableItem item : items) {
+    for (Item item : items) {
       System.out.println(i + ". " + item.getName());
       i++;
     }
@@ -92,6 +90,22 @@ public class FightView {
 
   public void printAttackResult(String attackerName, String deffenderName, double damage) {
     System.out.println(attackerName + " attacked " + deffenderName + " dealing " + damage + " damage.");
+  }
+
+  public void wrongChoice(){
+    System.out.println("Wrong choice!!");
+  }
+
+  public void fullHpMessage(){
+    System.out.println("Your HP is full.");
+  }
+
+  public void blockHero(LivingEntity monster){
+    System.out.println("You block attack form "+monster.getName());
+  }
+
+  public void winRoom(){
+    System.out.println("You defeat them all!");
   }
 
   public void showMenu() {
