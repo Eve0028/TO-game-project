@@ -5,11 +5,7 @@ import java.util.Scanner;
 
 import pk.rpgame.model.items.UsableItem;
 
-interface MenuClickListener {
-  void onActionClick(int num);
-}
-
-public class GeneralMenu {
+public class GeneralMenu{
   private MenuClickListener listener;
 
   public void setListener(MenuClickListener listener) {

@@ -4,14 +4,6 @@ import pk.rpgame.model.Room;
 import java.util.List;
 import java.util.Scanner;
 
-interface MenuClickListener {
-  void onActionClick(int num);
-}
-
-enum PickUpItems {
-  PICK_UP,
-  DONT_PICK_UP
-}
 
 public class ExplorationView {
 
@@ -19,12 +11,8 @@ public class ExplorationView {
 
   public void printRoomDescription(Room room) {
     System.out.println("You are in a room called " + room.getName());
-    if (room.getCreatures().isEmpty()) {
       System.out.println("You are safe in this room. There are no monsters here.");
-    } else {
-      System.out.println("There are several monsters in this room: " + room.getCreatures());
-      System.out.println("A fight will start soon!");
-    }
+
   }
 
   public void setListener(MenuClickListener listener) {

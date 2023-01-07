@@ -3,6 +3,7 @@ package pk.rpgame.view;
 import java.util.List;
 import java.util.Scanner;
 
+import pk.rpgame.model.Room;
 import pk.rpgame.model.items.UsableItem;
 import pk.rpgame.model.living.Hero;
 import pk.rpgame.model.living.Monster;
@@ -15,9 +16,16 @@ public class FightView {
 
   private FightClickListener listener;
 
+  public void printRoomDescription(Room room) {
+    System.out.println("You are in a room called " + room.getName());
+      System.out.println("There are several monsters in this room: " + room.getCreatures());
+      System.out.println("A fight will start soon!");
+  }
+
   public void setListener(FightClickListener listener) {
     this.listener = listener;
   }
+
 
   private int getAction() {
     Scanner keyboard = new Scanner(System.in);

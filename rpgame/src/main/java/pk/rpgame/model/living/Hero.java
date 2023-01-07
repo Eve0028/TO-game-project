@@ -1,6 +1,7 @@
 package pk.rpgame.model.living;
 
 import pk.rpgame.Visitor;
+import pk.rpgame.model.items.Armor;
 import pk.rpgame.model.items.Item;
 import pk.rpgame.model.living.state.HealthStatus;
 
