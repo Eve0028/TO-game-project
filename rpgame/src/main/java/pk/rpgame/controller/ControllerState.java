@@ -1,13 +1,14 @@
 package pk.rpgame.controller;
 
+import pk.rpgame.model.LevelMap;
 import pk.rpgame.model.Room;
-import pk.rpgame.model.WorldEntity;
 import pk.rpgame.model.living.Hero;
+import pk.rpgame.view.Map;
 
 public abstract class ControllerState {
-  public static IController getController(Hero hero,WorldEntity worldEntity, Room currentRoom) {
+  public static IController getController(Hero hero, LevelMap activeLevelMap , Map map, Room currentRoom) {
     if (currentRoom.getCreatures().isEmpty()) {
-      return new ExplorationController(hero,worldEntity,currentRoom);
+      return new ExplorationController(hero,map,currentRoom,activeLevelMap);
     } else {
       return new FightController();
     }

@@ -1,9 +1,7 @@
 package pk.rpgame.controller;
 
+import pk.rpgame.model.LevelMap;
 import pk.rpgame.model.Room;
-import pk.rpgame.model.WorldEntity;
-import pk.rpgame.model.items.Armor;
-
 import pk.rpgame.model.items.ArmorItem;
 import pk.rpgame.model.items.Item;
 import pk.rpgame.model.items.Potion;
@@ -20,19 +18,18 @@ public class ExplorationController implements IController {
 
     private Map map;
 
-    private GeneralMenu generalMenu;
-
-    private WorldEntity worldEntityModel;
-
     private Hero heroControler;
 
+    private LevelMap activeLevelMapController;
 
 
-    public ExplorationController(Hero hero,WorldEntity worldEntity, Room currentRoom) {
+
+    public ExplorationController(Hero hero,Map map, Room currentRoom,LevelMap activeLevelMap) {
         this.explorationView = new ExplorationView();
         this.room = currentRoom;
-        this.worldEntityModel = worldEntity;
         this.heroControler=hero;
+        this.map=map;
+        this.activeLevelMapController=activeLevelMap;
     }
 
 
@@ -48,7 +45,8 @@ public class ExplorationController implements IController {
                             findItem();
                             break;
                     case 2:
-
+                            nextRoom();
+                            break;
 
                 }
             }
@@ -71,13 +69,22 @@ public class ExplorationController implements IController {
                         heroControler.setArmor(((ArmorItem) item).getDefense());
                     }else {
                         //TODO
-                        // zmiana broni (klasa broń nie jest używana w hero)
+                        // change weapon (class weapon does not use in hero class )
                     }
                 }
             }else {
                     explorationView.showMenu();
             }
         }
+    }
+
+    public void nextRoom(){
+        //user choose next room
+        List<Room> nearestRoom=room.getNearestRooms();
+        int nextDestination=explorationView.getRoomChoice(nearestRoom);
+        // new room for hero
+        Room nextRoom=nearestRoom.get(nextDestination-1);
+        activeLevelMapController.changeRooms(room,nextRoom);
     }
 
 }
