@@ -47,7 +47,9 @@ public class ExplorationController implements IController {
                     case 2:
                             nextRoom();
                             break;
-
+                    case 3:
+                            showMap();
+                            break;
                 }
             }
         });
@@ -56,7 +58,7 @@ public class ExplorationController implements IController {
     public  void findItem(){
         List<Item> itemList=room.getItems();
         if(itemList.isEmpty()){
-            //można przenisć do viev
+            //move to the view
             System.out.println("Nothing found");
         }else{
             PickUpItems isPickedUp=explorationView.pickUpItems();
@@ -85,6 +87,16 @@ public class ExplorationController implements IController {
         // new room for hero
         Room nextRoom=nearestRoom.get(nextDestination-1);
         activeLevelMapController.changeRooms(room,nextRoom);
+
+        explorationView.showMenu();
     }
+
+
+    public void showMap(){
+        map.show();
+        explorationView.showMenu();
+    }
+
+
 
 }
