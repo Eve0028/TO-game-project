@@ -64,6 +64,10 @@ public class ExplorationView {
     }
   }
 
+  public void wrongChoice(){
+    System.out.println("Wrong choice!!");
+  }
+
   public void showMenu() {
     System.out.println("1. Explore this room");
     System.out.println("2. Go to the next room");

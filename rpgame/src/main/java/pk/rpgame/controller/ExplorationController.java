@@ -50,6 +50,11 @@ public class ExplorationController implements IController {
                     case 3:
                             showMap();
                             break;
+                    case 4:
+                            showGeneralMenu();
+                            break;
+                    default:
+                            explorationView.wrongChoice();
                 }
             }
         });
