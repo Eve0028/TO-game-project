@@ -99,6 +99,9 @@ public class FightView {
   public void fullHpMessage(){
     System.out.println("Your HP is full.");
   }
+  public void endGameMessage(){
+    System.out.println("Shutdown a game!");
+  }
 
   public void blockHero(LivingEntity monster){
     System.out.println("You block attack form "+monster.getName());

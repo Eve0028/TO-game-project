@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import pk.rpgame.model.items.Item;
 import pk.rpgame.model.items.UsableItem;
+import pk.rpgame.model.living.Hero;
 
 public class GeneralMenu{
   private MenuClickListener listener;
@@ -15,8 +16,7 @@ public class GeneralMenu{
 
   private int getAction() {
     Scanner keyboard = new Scanner(System.in);
-    int action = keyboard.nextInt();
-    keyboard.close();
+    Integer action = keyboard.nextInt();
     return action;
   }
 
@@ -24,7 +24,7 @@ public class GeneralMenu{
     System.out.println("Here are the items in your inventory: ");
     int i = 1;
     for (Item item : items) {
-      System.out.println(i + ". " + item.getName());
+      System.out.println(i + ". " + item.getName()+"\n");
       i++;
     }
   }
@@ -34,6 +34,34 @@ public class GeneralMenu{
   }
   public void endGameMessage(){
     System.out.println("Shutdown a game!");
+  }
+
+  public int getItemChoice(List<Item> items) {
+    System.out.println("Here are the items in your inventory: ");
+    int i = 1;
+    for (Item item : items) {
+      System.out.println(i + ". " + item.getName());
+      i++;
+    }
+    System.out.print("Choose number of the item you wish yo use: ");
+    int action = getAction();
+    while (true) {
+      if (action > items.size() || action < 1) {
+        System.out.println("Pick a correct number!");
+        action = getAction();
+      } else {
+        break;
+      }
+    }
+    return action;
+  }
+
+  public void printHeroHealth(Hero hero) {
+    System.out.println("You currently have " + hero.getHealth() + " health points");
+  }
+
+  public void fullHpMessage(){
+    System.out.println("Your HP is full.");
   }
 
   public void printNothingMessageInInventory(){System.out.println("Your inventory is empty");}

@@ -15,19 +15,33 @@ public class ExplorationController extends Controller implements MenuClickListen
     private static ExplorationView explorationView;
     private Room room;
 
+    private Room previousRoom;
+
     private Map map;
 
     private Hero heroControler;
 
     private LevelMap activeLevelMapController;
-    private GameEngine gameEngineController;
-
+    
     private GeneralMenuController generalMenuHelp;
 
 
 
 
-    public ExplorationController(Hero hero,Map map, Room currentRoom,LevelMap activeLevelMap,GameEngine gameEngine) {
+    public ExplorationController(Hero hero,Map map, Room currentRoom,Room previousRoom,LevelMap activeLevelMap,
+                                 GameEngine gameEngine) {
+        super(gameEngine);
+        this.explorationView = new ExplorationView();
+        this.room = currentRoom;
+        this.heroControler=hero;
+        this.map=map;
+        this.activeLevelMapController=activeLevelMap;
+        this.previousRoom=previousRoom;
+
+    }
+
+    public ExplorationController(Hero hero,Map map, Room currentRoom,LevelMap activeLevelMap,
+                                 GameEngine gameEngine) {
         super(gameEngine);
         this.explorationView = new ExplorationView();
         this.room = currentRoom;
@@ -38,7 +52,7 @@ public class ExplorationController extends Controller implements MenuClickListen
     }
 
     public void setGameEngineController(GameEngine gameEngineController) {
-        this.gameEngineController = gameEngineController;
+        this.gameEngine = gameEngineController;
     }
 
     @Override
@@ -105,14 +119,14 @@ public class ExplorationController extends Controller implements MenuClickListen
         // new room for hero
         Room nextRoom=nearestRoom.get(nextDestination-1);
         activeLevelMapController.changeRooms(room,nextRoom);
+        previousRoom=room;
         room=nextRoom;
-        /*explorationView.showMenu();*/
         //kontorler
         if(room.getCreatures().isEmpty()){
-            gameEngineController.changeStateControler(new ExplorationController(heroControler,map,room,
-                    activeLevelMapController,gameEngineController));
+            gameEngine.changeStateControler(new ExplorationController(heroControler,map,room,
+                    previousRoom,activeLevelMapController,gameEngine));
         }else{
-            gameEngineController.changeStateControler(new FightController(gameEngineController,heroControler,map,room
+            gameEngine.changeStateControler(new FightController(gameEngine,heroControler,map,room,previousRoom
                     ,activeLevelMapController));
         }
     }
@@ -124,8 +138,8 @@ public class ExplorationController extends Controller implements MenuClickListen
     }
 
     public void showGeneralMenu(){
-
-
+        gameEngine.changeStateControler(new GeneralMenuController(heroControler,room,previousRoom,map,activeLevelMapController,
+                gameEngine));
     }
 
 

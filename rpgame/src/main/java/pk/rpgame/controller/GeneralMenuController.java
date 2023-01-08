@@ -2,12 +2,11 @@ package pk.rpgame.controller;
 
 import pk.rpgame.model.LevelMap;
 import pk.rpgame.model.Room;
-import pk.rpgame.model.items.ArmorItem;
 import pk.rpgame.model.items.Item;
 import pk.rpgame.model.items.Potion;
 import pk.rpgame.model.items.UsableItem;
 import pk.rpgame.model.living.Hero;
-import pk.rpgame.view.FightView;
+import pk.rpgame.model.singleton.AccessSaveFile;
 import pk.rpgame.view.GeneralMenu;
 import pk.rpgame.view.Map;
 import pk.rpgame.view.MenuClickListener;
@@ -17,74 +16,39 @@ import java.util.List;
 public class GeneralMenuController extends Controller implements MenuClickListener {
 
     private GeneralMenu generalMenu;
-    private Hero heroGeneralControler;
+    private Hero heroControler;
 
     private Room room;
 
+    private Room previousRoom;
+
     private Map map;
 
-    private LevelMap activeLevelMapController;
-    private GameEngine gameEngineController;
-    private FightView fightViewHelp;
+    private LevelMap activeLevelMap;
 
-    private ExplorationController explorationControllerHelp;
 
-    public GeneralMenuController(Hero heroGeneralController, Room room, Map map, LevelMap activeLevelMapController,
-                                 GameEngine gameEngineController) {
-        super(gameEngineController);
-        this.heroGeneralControler = heroGeneralController;
+
+
+    public GeneralMenuController(Hero heroController, Room room, Room previousRoom,Map map, LevelMap activeLevelMap,
+                                 GameEngine gameEngine) {
+        super(gameEngine);
+        this.generalMenu= new GeneralMenu();
+        this.heroControler = heroController;
         this.room = room;
         this.map = map;
-        this.activeLevelMapController = activeLevelMapController;
+        this.activeLevelMap = activeLevelMap;
+        this.previousRoom=previousRoom;
 
+    }
+
+    public GeneralMenuController(GameEngine gameEngine) {
+        super(gameEngine);
     }
 
     public void initView() {
         generalMenu.setListener(this);
         generalMenu.showMenu();
     }
-
-
-    public void showInventroy() {
-        if (heroGeneralControler.getItems().isEmpty()) {
-            generalMenu.printNothingMessageInInventory();
-            generalMenu.showMenu();
-        } else {
-            generalMenu.printInventory(heroGeneralControler.getItems());
-            generalMenu.showMenu();
-        }
-
-        generalMenu.showMenu();
-    }
-
-    public void useHealthPotion() {
-        List<Item> itemInventory=heroGeneralControler.getItems();
-        int itemChoose=fightViewHelp.getItemChoice(itemInventory);
-        Item item=itemInventory.get(itemChoose);
-        if(item.getClass()== Potion.class && (heroGeneralControler.getHealth()<heroGeneralControler.getMaxHealth())){
-            ((Potion) item).use(heroGeneralControler);
-            if(heroGeneralControler.getHealth()>heroGeneralControler.getMaxHealth()){
-                double healthDifference=heroGeneralControler.getHealth()-heroGeneralControler.getMaxHealth();
-                heroGeneralControler.setHealth(heroGeneralControler.getHealth()-healthDifference);
-            }
-            fightViewHelp.printHeroHealth(heroGeneralControler);
-            fightViewHelp.showMenu();
-        } else if (heroGeneralControler.getHealth()==heroGeneralControler.getMaxHealth()) {
-            fightViewHelp.fullHpMessage();
-            fightViewHelp.showMenu();
-        }else{
-            fightViewHelp.wrongChoice();
-            generalMenu.showMenu();
-        }
-
-        generalMenu.showMenu();
-    }
-
-    public void backToExploration(){
-
-
-    }
-
 
     @Override
     public void onActionClick(int num) {
@@ -96,18 +60,79 @@ public class GeneralMenuController extends Controller implements MenuClickListen
                 useHealthPotion();
                 break;
             case 3:
-                //TODO save game to file
+                saveGame();
                 break;
             case 4:
-                generalMenu.endGameMessage();
-                System.exit(0);
+                endGame();
                 break;
             case 5:
                 backToExploration();
             default:
                 generalMenu.wrongChoice();
+                generalMenu.showMenu();
         }
     }
+
+
+    public void showInventroy() {
+        Potion potion= new Potion("potka",20);
+        List<Item> heroInventory=heroControler.getItems();
+        heroInventory.add(potion);
+        if (heroInventory.isEmpty()) {
+            generalMenu.printNothingMessageInInventory();
+            generalMenu.showMenu();
+        } else {
+            generalMenu.printInventory(heroControler.getItems());
+            generalMenu.showMenu();
+        }
+
+        generalMenu.showMenu();
+    }
+    public void useHealthPotion() {
+        List<Item> itemInventory=heroControler.getItems();
+        if(itemInventory.isEmpty()){
+            generalMenu.printNothingMessageInInventory();
+            generalMenu.showMenu();
+        } else if (heroControler.getHealth()==heroControler.getMaxHealth()) {
+            generalMenu.fullHpMessage();
+            generalMenu.showMenu();
+        }
+
+        int itemChoose=generalMenu.getItemChoice(itemInventory)-1;
+        Item item=itemInventory.get(itemChoose);
+        if(item.getClass()== Potion.class && (heroControler.getHealth()<heroControler.getMaxHealth())){
+            ((Potion) item).use(heroControler);
+            if(heroControler.getHealth()>heroControler.getMaxHealth()){
+                double healthDifference=heroControler.getHealth()-heroControler.getMaxHealth();
+                heroControler.setHealth(heroControler.getHealth()-healthDifference);
+            }
+            generalMenu.printHeroHealth(heroControler);
+            generalMenu.showMenu();
+        }  else if (!itemInventory.contains(UsableItem.class)) {
+            generalMenu.printNothingMessageInInventory();
+            generalMenu.showMenu();
+        } else{
+            generalMenu.wrongChoice();
+            generalMenu.showMenu();
+        }
+    }
+
+    public void backToExploration(){
+        gameEngine.changeStateControler(new ExplorationController(heroControler,map,room,previousRoom,
+                activeLevelMap,gameEngine));
+
+    }
+
+    public void saveGame(){
+        AccessSaveFile.getInstance().saveData();
+    }
+
+    public void endGame(){
+        generalMenu.endGameMessage();
+        System.exit(0);
+    }
+
+
 }
 
 

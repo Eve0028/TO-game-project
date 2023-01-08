@@ -19,29 +19,37 @@ public class FightController extends Controller implements MenuClickListener {
     private static FightView fightViewController;
     private Room room;
 
+    private Room previousRoom;
+
     private Map map;
 
     private Hero heroControler;
 
     private LevelMap activeLevelMapController;
-    private GameEngine gameEngineController;
 
 
-    public FightController(GameEngine gameEngine, Hero hero, Map map, Room currentRoom, LevelMap activeLevelMap) {
+
+    public FightController(GameEngine gameEngine, Hero hero, Map map, Room currentRoom, Room previousRoom,
+                           LevelMap activeLevelMap) {
         super(gameEngine);
         this.fightViewController = new FightView();
         this.room = currentRoom;
         this.heroControler = hero;
         this.map = map;
         this.activeLevelMapController = activeLevelMap;
+        this.previousRoom=previousRoom;
 
     }
+    public void setGameEngineController(GameEngine gameEngineController) {
+        this.gameEngine = gameEngineController;
+    }
+    
 
     @Override
     public void initView() {
         fightViewController.printRoomDescription(room);
         fightViewController.printEnemies(room.getCreatures());
-        fightViewController.setListener(this::onActionClick);
+        fightViewController.setListener(this);
         fightViewController.showMenu();
     }
 
@@ -63,17 +71,19 @@ public class FightController extends Controller implements MenuClickListener {
                 break;
             default:
                 fightViewController.wrongChoice();
+                fightViewController.showMenu();
         }
+    }
+
+    public void endGame(){
+        fightViewController.endGameMessage();
+        System.exit(0);
     }
 
     public void attack() {
         if (heroControler.getHealth() > 0) {
         List<LivingEntity> listMonsters = room.getCreatures();
-        if (listMonsters.isEmpty()) {
-            System.out.println("You defeat them all!");
-            gameEngineController.changeStateControler(new ExplorationController(heroControler,map,room,
-                    activeLevelMapController,gameEngineController));
-        } else {
+
                 for (LivingEntity monster :
                         listMonsters) {
                     heroControler.setHealth(heroControler.getHealth()-monster.dealDamage());
@@ -83,6 +93,7 @@ public class FightController extends Controller implements MenuClickListener {
                         fightViewController.printHeroHealth(heroControler);
                     } else {
                         fightViewController.heroDeath();
+                        endGame();
                         break;
                     }
                 }
@@ -92,24 +103,36 @@ public class FightController extends Controller implements MenuClickListener {
                 if (monster.getHealth() > 0) {
                     monster.setHealth(monster.getHealth()-heroControler.dealDamage());
                     fightViewController.printAttackResult(heroControler.getName(), monster.getName(), heroControler.dealDamage());
-                    listMonsters.set(chooseMonster,monster);
-                } else {
-                    fightViewController.printMonsterDeath(monster.getName());
-                    listMonsters.remove(monster);
+                    if(monster.getHealth()<=0){
+                        fightViewController.printMonsterDeath(monster.getName());
+                        listMonsters.remove(monster);
+                    }
                 }
+
+
+                    if(room.getCreatures().isEmpty()){
+                        room.setCreatures(listMonsters);
+                        System.out.println("You defeat them all!");
+                        gameEngine.changeStateControler(new ExplorationController(heroControler,map,room,previousRoom,
+                                activeLevelMapController,gameEngine));
+                    }
                     fightViewController.showMenu();
-            }
+
         }else{
             fightViewController.heroDeath();
+
+            fightViewController.endGameMessage();
+            endGame();
         }
     }
 
     public void defend(){
-        if(!room.getCreatures().isEmpty()){
-            if (heroControler.getHealth() > 0){
+
                 List<LivingEntity> listMonsters = room.getCreatures();
                 if (listMonsters.isEmpty()) {
                     fightViewController.winRoom();
+                    gameEngine.changeStateControler(new ExplorationController(heroControler,map,room,previousRoom,
+                            activeLevelMapController,gameEngine));
                 }else{
                     for (LivingEntity monster :
                             listMonsters) {
@@ -120,18 +143,11 @@ public class FightController extends Controller implements MenuClickListener {
                     fightViewController.showMenu();
 
                 }
-            }else{
-                fightViewController.heroDeath();
             }
-        }else{
-                gameEngineController.changeStateControler(new ExplorationController(heroControler,map,room,
-                        activeLevelMapController,gameEngineController));
-            }
-    }
+
 
 
     public void useItem(){
-        //test
         List<Item> itemInventory=heroControler.getItems();
         if(itemInventory.isEmpty()){
             fightViewController.printNothingMessageInInventory();
@@ -160,10 +176,10 @@ public class FightController extends Controller implements MenuClickListener {
     }
 
     public void escape(){
-        //TODO back to previous room
-
-        gameEngineController.changeStateControler(new ExplorationController(heroControler,map,room,
-                activeLevelMapController,gameEngineController));
+        gameEngine.changeStateControler(new ExplorationController(heroControler,map,previousRoom,
+                activeLevelMapController,gameEngine));
     }
+
+
 
 }
