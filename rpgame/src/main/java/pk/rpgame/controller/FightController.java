@@ -90,7 +90,7 @@ public class FightController extends Controller implements MenuClickListener {
                 int chooseMonster = fightViewController.getMonsterChoice(room.getCreatures())-1;
                 Monster monster = (Monster) listMonsters.get(chooseMonster);
                 if (monster.getHealth() > 0) {
-                    monster.receiveDamage(heroControler.dealDamage());
+                    monster.setHealth(monster.getHealth()-heroControler.dealDamage());
                     fightViewController.printAttackResult(heroControler.getName(), monster.getName(), heroControler.dealDamage());
                     listMonsters.set(chooseMonster,monster);
                 } else {

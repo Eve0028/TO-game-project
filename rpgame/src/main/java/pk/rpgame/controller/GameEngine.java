@@ -14,8 +14,8 @@ public class GameEngine {
     private LevelMap activeLevelMap;
     private Room activeRoom;
     private Hero hero;
-
     private GameEngine gameEngine;
+
 
 
     private Controller controllerState;
@@ -45,9 +45,9 @@ public class GameEngine {
 
         // Add mapVision to be updated about Room's state changes
         activeLevelMap.subscribe(mapVision);
-        //controllerState= new FightController(gameEngine,hero,mapVision,activeRoom,activeLevelMap);
-        //controllerState= new ExplorationController(hero,mapVision,activeRoom,activeLevelMap,gameEngine);
-        controllerState=new GeneralMenuController(hero,activeRoom,mapVision,activeLevelMap,gameEngine);
+        controllerState= new FightController(gameEngine,hero,mapVision,activeRoom,activeLevelMap);
+        //controllerState= new ExplorationController(hero,mapVision,activeRoom,activeLevelMap,this);
+        //controllerState=new GeneralMenuController(hero,activeRoom,mapVision,activeLevelMap,gameEngine);
     }
 
     public void startGame() throws Exception {
@@ -56,6 +56,7 @@ public class GameEngine {
 
 
         // Get the nearest rooms from the room where Hero is currently located
+
         controllerState.initView();
 
 /*        // Room travel test
