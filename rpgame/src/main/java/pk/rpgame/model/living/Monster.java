@@ -24,7 +24,7 @@ public class Monster extends LivingEntity {
 
     @Override
     public void receiveDamage(double damage) {
-        this.setHealth(this.getHealth() - damage);
+        this.setHealth(getHealth()-damage);
     }
 
     @Override

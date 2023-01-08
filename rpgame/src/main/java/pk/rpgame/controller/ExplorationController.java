@@ -35,7 +35,6 @@ public class ExplorationController extends Controller implements MenuClickListen
         this.map=map;
         this.activeLevelMapController=activeLevelMap;
 
-
     }
 
     public void setGameEngineController(GameEngine gameEngineController) {
@@ -45,7 +44,7 @@ public class ExplorationController extends Controller implements MenuClickListen
     @Override
     public void initView() {
         explorationView.printRoomDescription(room);
-        explorationView.setListener(this::onActionClick);
+        explorationView.setListener(this);
         explorationView.showMenu();
     }
 
@@ -66,16 +65,18 @@ public class ExplorationController extends Controller implements MenuClickListen
                 break;
             default:
                 explorationView.wrongChoice();
+                explorationView.showMenu();
         }
     }
 
     public  void findItem(){
         List<Item> itemList=room.getItems();
         if(itemList.isEmpty()){
-            //move to the view
-            System.out.println("Nothing found");
+            explorationView.nothingFound();
+            explorationView.showMenu();
         }else{
-            PickUpItems isPickedUp=explorationView.pickUpItems();
+            PickUpItems isPickedUp=explorationView.pickUpItems(room.getItems());
+
             if(isPickedUp==PickUpItems.PICK_UP){
                 for (Item item:
                      itemList) {
@@ -87,8 +88,9 @@ public class ExplorationController extends Controller implements MenuClickListen
                             }
                         }
                     }
-
                      heroControler.addItem(item);
+                     explorationView.addToInventory(item);
+                     explorationView.showMenu();
                 }
             }else {
                     explorationView.showMenu();
@@ -104,7 +106,7 @@ public class ExplorationController extends Controller implements MenuClickListen
         Room nextRoom=nearestRoom.get(nextDestination-1);
         activeLevelMapController.changeRooms(room,nextRoom);
         room=nextRoom;
-        //gameEngineController.changeStateControler();
+        explorationView.showMenu();
     }
 
 
@@ -114,8 +116,8 @@ public class ExplorationController extends Controller implements MenuClickListen
     }
 
     public void showGeneralMenu(){
-            generalMenuHelp=new GeneralMenuController(heroControler,room,map,activeLevelMapController,gameEngineController);
-            generalMenuHelp.initView();
+        gameEngineController.changeStateControler(new GeneralMenuController(heroControler,room,map,activeLevelMapController,gameEngineController));
+
     }
 
 

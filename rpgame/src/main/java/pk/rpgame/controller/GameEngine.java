@@ -9,16 +9,20 @@ import pk.rpgame.view.Map;
 
 import java.util.ArrayList;
 
-public class GameEngine extends ControllerState {
+public class GameEngine {
     private Map mapVision;
     private LevelMap activeLevelMap;
     private Room activeRoom;
     private Hero hero;
 
+    private GameEngine gameEngine;
+
 
     private Controller controllerState;
 
     public GameEngine() throws Exception {
+
+
         // Initialization all object needed at the beginning of the game
 
         // Build first LevelMap
@@ -27,13 +31,13 @@ public class GameEngine extends ControllerState {
         levelBuilder.setRooms();
         levelBuilder.setMonsters();
         levelBuilder.setMapItems();
-        hero = new Hero("Janek", 1, 2.5, 100, 100, 25, new ArrayList<>(), new FullHp(), 0, 15);
+        hero = new Hero("Janek", 1, 2.5, 100, 100, 25, new ArrayList<>(), new FullHp(), 25, 15);
 
         activeLevelMap = levelBuilder.getLevelMap();
 
         // Set Hero in first Room
         activeRoom = activeLevelMap.getRooms().get(0);
-        activeRoom.enterRoom();
+        //activeRoom.enterRoom();
 
         // Create Map to visualise map on screen
         final int mapSize = 5;
@@ -41,7 +45,9 @@ public class GameEngine extends ControllerState {
 
         // Add mapVision to be updated about Room's state changes
         activeLevelMap.subscribe(mapVision);
-
+        //controllerState= new FightController(gameEngine,hero,mapVision,activeRoom,activeLevelMap);
+        //controllerState= new ExplorationController(hero,mapVision,activeRoom,activeLevelMap,gameEngine);
+        controllerState=new GeneralMenuController(hero,activeRoom,mapVision,activeLevelMap,gameEngine);
     }
 
     public void startGame() throws Exception {
@@ -50,9 +56,7 @@ public class GameEngine extends ControllerState {
 
 
         // Get the nearest rooms from the room where Hero is currently located
-
         controllerState.initView();
-
 
 /*        // Room travel test
         int howManySteps = 0;*/

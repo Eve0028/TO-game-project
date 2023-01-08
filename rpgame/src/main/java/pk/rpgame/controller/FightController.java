@@ -4,6 +4,7 @@ import pk.rpgame.model.LevelMap;
 import pk.rpgame.model.Room;
 import pk.rpgame.model.items.Item;
 import pk.rpgame.model.items.Potion;
+import pk.rpgame.model.items.UsableItem;
 import pk.rpgame.model.living.Hero;
 import pk.rpgame.model.living.LivingEntity;
 import pk.rpgame.model.living.Monster;
@@ -70,11 +71,14 @@ public class FightController extends Controller implements MenuClickListener {
         List<LivingEntity> listMonsters = room.getCreatures();
         if (listMonsters.isEmpty()) {
             System.out.println("You defeat them all!");
+            gameEngineController.changeStateControler(new ExplorationController(heroControler,map,room,
+                    activeLevelMapController,gameEngineController));
         } else {
                 for (LivingEntity monster :
                         listMonsters) {
-                    heroControler.receiveDamage(monster.dealDamage());
-                    fightViewController.printAttackResult(monster.getName(), heroControler.getName(), monster.dealDamage());
+                    heroControler.setHealth(heroControler.getHealth()-monster.dealDamage());
+                    fightViewController.printAttackResult(monster.getName(), heroControler.getName(),
+                            monster.dealDamage());
                     if (heroControler.getHealth() > 0) {
                         fightViewController.printHeroHealth(heroControler);
                     } else {
@@ -83,7 +87,7 @@ public class FightController extends Controller implements MenuClickListener {
                     }
                 }
 
-                int chooseMonster = fightViewController.getMonsterChoice(room.getCreatures());
+                int chooseMonster = fightViewController.getMonsterChoice(room.getCreatures())-1;
                 Monster monster = (Monster) listMonsters.get(chooseMonster);
                 if (monster.getHealth() > 0) {
                     monster.receiveDamage(heroControler.dealDamage());
@@ -101,26 +105,39 @@ public class FightController extends Controller implements MenuClickListener {
     }
 
     public void defend(){
-        if (heroControler.getHealth() > 0){
-            List<LivingEntity> listMonsters = room.getCreatures();
-            if (listMonsters.isEmpty()) {
-                fightViewController.winRoom();
-            }else{
-                for (LivingEntity monster :
-                        listMonsters) {
-                    fightViewController.blockHero(monster);
-                    fightViewController.printHeroHealth(heroControler);
-                }
+        if(!room.getCreatures().isEmpty()){
+            if (heroControler.getHealth() > 0){
+                List<LivingEntity> listMonsters = room.getCreatures();
+                if (listMonsters.isEmpty()) {
+                    fightViewController.winRoom();
+                }else{
+                    for (LivingEntity monster :
+                            listMonsters) {
+                        fightViewController.blockHero(monster);
+                        fightViewController.printHeroHealth(heroControler);
+                    }
 
+                    fightViewController.showMenu();
+
+                }
+            }else{
+                fightViewController.heroDeath();
             }
         }else{
-            fightViewController.heroDeath();
-        }
+                gameEngineController.changeStateControler(new ExplorationController(heroControler,map,room,
+                        activeLevelMapController,gameEngineController));
+            }
     }
 
+
     public void useItem(){
+        //test
         List<Item> itemInventory=heroControler.getItems();
-        int itemChoose=fightViewController.getItemChoice(itemInventory);
+        if(itemInventory.isEmpty()){
+            fightViewController.printNothingMessageInInventory();
+            fightViewController.showMenu();
+        }
+        int itemChoose=fightViewController.getItemChoice(itemInventory)-1;
         Item item=itemInventory.get(itemChoose);
         if(item.getClass()== Potion.class && (heroControler.getHealth()<heroControler.getMaxHealth())){
                 ((Potion) item).use(heroControler);
@@ -133,14 +150,20 @@ public class FightController extends Controller implements MenuClickListener {
         } else if (heroControler.getHealth()==heroControler.getMaxHealth()) {
             fightViewController.fullHpMessage();
             fightViewController.showMenu();
-        }else{
+        } else if (!itemInventory.contains(UsableItem.class)) {
+                fightViewController.printNothingMessageInInventory();
+                fightViewController.showMenu();
+        } else{
             fightViewController.wrongChoice();
             fightViewController.showMenu();
         }
     }
 
     public void escape(){
-        //TODO change state controler, back to the previous room
+        //TODO back to previous room
+
+        gameEngineController.changeStateControler(new ExplorationController(heroControler,map,room,
+                activeLevelMapController,gameEngineController));
     }
 
 }

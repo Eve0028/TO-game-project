@@ -8,5 +8,5 @@ public abstract class Controller {
         this.gameEngine=gameEngine;
     }
 
-    public void initView(){};
+    public  abstract void  initView();
 }

@@ -16,7 +16,7 @@ public class FightView {
 
   public void printRoomDescription(Room room) {
     System.out.println("You are in a room called " + room.getName());
-      System.out.println("There are several monsters in this room: " + room.getCreatures());
+      System.out.println("There are several monsters in this room.");
       System.out.println("A fight will start soon!");
   }
 
@@ -28,7 +28,6 @@ public class FightView {
   private int getAction() {
     Scanner keyboard = new Scanner(System.in);
     int action = keyboard.nextInt();
-    keyboard.close();
     return action;
   }
 
@@ -88,6 +87,7 @@ public class FightView {
     return action;
   }
 
+  public void printNothingMessageInInventory(){System.out.println("Your inventory is empty");}
   public void printAttackResult(String attackerName, String deffenderName, double damage) {
     System.out.println(attackerName + " attacked " + deffenderName + " dealing " + damage + " damage.");
   }

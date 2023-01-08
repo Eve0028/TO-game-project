@@ -32,6 +32,9 @@ public class GeneralMenu{
   public void printNoPotionMessage() {
     System.out.println("You have no health potion in your inventory!");
   }
+  public void endGameMessage(){
+    System.out.println("Shutdown a game!");
+  }
 
   public void printNothingMessageInInventory(){System.out.println("Your inventory is empty");}
   public void printMaxHealthMessage(){

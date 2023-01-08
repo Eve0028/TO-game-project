@@ -14,7 +14,7 @@ import pk.rpgame.view.MenuClickListener;
 
 import java.util.List;
 
-public class GeneralMenuController implements MenuClickListener {
+public class GeneralMenuController extends Controller implements MenuClickListener {
 
     private GeneralMenu generalMenu;
     private Hero heroGeneralControler;
@@ -29,16 +29,18 @@ public class GeneralMenuController implements MenuClickListener {
 
     private ExplorationController explorationControllerHelp;
 
-    public GeneralMenuController(Hero heroGeneralControler, Room room, Map map, LevelMap activeLevelMapController, GameEngine gameEngineController) {
-        this.heroGeneralControler = heroGeneralControler;
+    public GeneralMenuController(Hero heroGeneralController, Room room, Map map, LevelMap activeLevelMapController,
+                                 GameEngine gameEngineController) {
+        super(gameEngineController);
+        this.heroGeneralControler = heroGeneralController;
         this.room = room;
         this.map = map;
         this.activeLevelMapController = activeLevelMapController;
-        this.gameEngineController = gameEngineController;
+
     }
 
     public void initView() {
-        generalMenu.setListener(this::onActionClick);
+        generalMenu.setListener(this);
         generalMenu.showMenu();
     }
 
@@ -79,8 +81,7 @@ public class GeneralMenuController implements MenuClickListener {
     }
 
     public void backToExploration(){
-        explorationControllerHelp=new ExplorationController(heroGeneralControler,map,room,activeLevelMapController, gameEngineController);
-        explorationControllerHelp.initView();
+
 
     }
 
@@ -98,7 +99,8 @@ public class GeneralMenuController implements MenuClickListener {
                 //TODO save game to file
                 break;
             case 4:
-                // TODO exit game
+                generalMenu.endGameMessage();
+                System.exit(0);
                 break;
             case 5:
                 backToExploration();

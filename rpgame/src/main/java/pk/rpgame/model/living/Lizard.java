@@ -13,9 +13,6 @@ public class Lizard extends Monster {
 
     @Override
     public double dealDamage() {
-        if (this.getHealth() < this.getMaxHealth() / 2) {
-            return this.getStrength() * 1.2;
-        }
         return super.dealDamage();
     }
 }
