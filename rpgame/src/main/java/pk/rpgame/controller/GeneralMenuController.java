@@ -75,9 +75,7 @@ public class GeneralMenuController extends Controller implements MenuClickListen
 
 
     public void showInventroy() {
-        Potion potion= new Potion("potka",20);
         List<Item> heroInventory=heroControler.getItems();
-        heroInventory.add(potion);
         if (heroInventory.isEmpty()) {
             generalMenu.printNothingMessageInInventory();
             generalMenu.showMenu();
@@ -124,7 +122,9 @@ public class GeneralMenuController extends Controller implements MenuClickListen
     }
 
     public void saveGame(){
-        AccessSaveFile.getInstance().saveData();
+        AccessSaveFile.getInstance().saveData(heroControler.getName(),heroControler.getHealth(),
+                heroControler.getStrength(),heroControler.getItems());
+        generalMenu.showMenu();
     }
 
     public void endGame(){

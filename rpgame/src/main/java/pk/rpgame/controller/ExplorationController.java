@@ -103,6 +103,7 @@ public class ExplorationController extends Controller implements MenuClickListen
                         }
                     }
                      heroControler.addItem(item);
+                     room.removeItem(item);
                      explorationView.addToInventory(item);
                      explorationView.showMenu();
                 }
@@ -121,7 +122,6 @@ public class ExplorationController extends Controller implements MenuClickListen
         activeLevelMapController.changeRooms(room,nextRoom);
         previousRoom=room;
         room=nextRoom;
-        //kontorler
         if(room.getCreatures().isEmpty()){
             gameEngine.changeStateControler(new ExplorationController(heroControler,map,room,
                     previousRoom,activeLevelMapController,gameEngine));

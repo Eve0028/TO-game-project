@@ -6,10 +6,6 @@ import pk.rpgame.model.living.state.HealthStatus;
 
 import java.util.List;
 
-// TODO:
-// In controls:
-// Take ready-made monsters from the board (flyweight) and copy them (prototype),
-// and if they don't exist yet - create and add to the board (factory method).
 
 public class Monster extends LivingEntity {
 

@@ -42,13 +42,23 @@ public class FirstLevelBuilder implements LevelMapBuilder {
                 allRooms[i][j] = new IntPoint(i, j);
             }
         }
-
+        //TODO add new rooms
         // Create Room's Point with its "roommates"
         // Use only Room's Points in certain LevelMap
         TreeMap<IntPoint, List<IntPoint>> listRoomsLocation = new TreeMap<>();
         listRoomsLocation.put(allRooms[0][0], List.of(allRooms[1][0]));
         listRoomsLocation.put(allRooms[1][0], List.of(allRooms[0][0], allRooms[1][1]));
-        listRoomsLocation.put(allRooms[1][1], List.of(allRooms[1][0]));
+        listRoomsLocation.put(allRooms[1][1], List.of(allRooms[1][0],allRooms[1][2]));
+        listRoomsLocation.put(allRooms[1][2],List.of(allRooms[1][1],allRooms[1][3]));
+        listRoomsLocation.put(allRooms[1][3],List.of(allRooms[1][2],allRooms[2][3],allRooms[0][3]));
+        listRoomsLocation.put(allRooms[0][3],List.of(allRooms[1][3]));
+        listRoomsLocation.put(allRooms[2][3],List.of(allRooms[1][3],allRooms[3][3],allRooms[2][4]));
+        listRoomsLocation.put(allRooms[2][4],List.of(allRooms[2][3]));
+        listRoomsLocation.put(allRooms[3][3],List.of(allRooms[2][3],allRooms[3][2]));
+        listRoomsLocation.put(allRooms[3][2],List.of(allRooms[3][1],allRooms[3][3]));
+        listRoomsLocation.put(allRooms[3][1],List.of(allRooms[3][0],allRooms[3][2]));
+        listRoomsLocation.put(allRooms[3][0],List.of(allRooms[4][0],allRooms[3][1]));
+        listRoomsLocation.put(allRooms[4][0],List.of(allRooms[3][0]));
 
         for (IntPoint mainRoomPoint : listRoomsLocation.keySet()) {
             // Add room with monsters and items to roomList
@@ -79,9 +89,11 @@ public class FirstLevelBuilder implements LevelMapBuilder {
 
     @Override
     public void setMapItems() throws Exception {
-/*        for (Room room : this.roomList) {
+        for (Room room : this.roomList) {
+            for(int m=0;m<1;m++){
                 room.addItem(strongPotionFactory.getObject());
-        }*/
+        }
+    }
     }
 
     public LevelMap getLevelMap() {

@@ -21,9 +21,6 @@ public class Hero extends LivingEntity {
 
     @Override
     public double dealDamage() {
-        // TODO:
-        // Return damage from hero and his weapon
-
         return this.getStrength();
     }
 
@@ -41,8 +38,6 @@ public class Hero extends LivingEntity {
     }
 
     public double getArmor() {
-        // TODO:
-        // Sum all armor from all armor items
 
         return armor;
     }
