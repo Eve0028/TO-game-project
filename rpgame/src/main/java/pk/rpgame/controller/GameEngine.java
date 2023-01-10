@@ -19,7 +19,6 @@ public class GameEngine {
 
     public GameEngine() throws Exception {
 
-
         // Initialization all object needed at the beginning of the game
 
         // Build first LevelMap
@@ -42,7 +41,9 @@ public class GameEngine {
 
         // Add mapVision to be updated about Room's state changes
         activeLevelMap.subscribe(mapVision);
-        controllerState= new ExplorationController(hero,this.mapVision,activeRoom,null,activeLevelMap,this);
+        // controllerState= new
+        // ExplorationController(hero,this.mapVision,activeRoom,null,activeLevelMap,this);
+        controllerState = new MainMenuController(hero, this.mapVision, activeRoom, activeLevelMap, this);
 
     }
 
@@ -51,8 +52,8 @@ public class GameEngine {
         controllerState.initView();
     }
 
-    public void changeStateControler(Controller controller){
-        this.controllerState=controller;
+    public void changeStateControler(Controller controller) {
+        this.controllerState = controller;
         controllerState.initView();
     }
 
