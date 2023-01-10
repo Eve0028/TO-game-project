@@ -1,8 +1,8 @@
 package pk.rpgame.model.singleton;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import pk.rpgame.model.items.Item;
+
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Formatter;
@@ -25,7 +25,7 @@ public class AccessSaveFile {
         return instance;
     }
 
-    public void saveData(/*argumenty do dodania co bedziemy zapisywać*/){
+    public void saveData(String name, Double HP, Double strength,List<Item>  items){
         if(!file.exists()){
             try {
                 file.createNewFile();
@@ -36,14 +36,24 @@ public class AccessSaveFile {
 
         if(file.canWrite()) {
             try {
-                FileWriter fw = new FileWriter(file, true);
-                Formatter fm= new Formatter(fw);
-                Scanner sf= new Scanner(file);
+                FileWriter fw = new FileWriter(file, false);
+                BufferedWriter writer= new BufferedWriter(fw);
 
-                /* fm.format(*//*zapis argumentów do pliku (typ)*//*,*//*argumenty*//*);*/
+
+                 writer.write("!!!!Hall of fame!!!!\n");
+                 writer.write("Hero name: " +name+"\n");
+                 writer.write("Hero HP was equal: "+HP.toString()+"\n");
+                 writer.write("Hero strength was equal: " +strength.toString()+"\n");
+                 writer.write("\nIn his inventory was: \n");
+
+                for (Item item:
+                     items) {
+                    writer.write("Item name: "+item.getName());
+
+                }
 
                 //zamknięcie pliku
-                fm.close();
+                writer.close();
                 fw.close();
             }catch (Exception e){
                 System.out.println(e.getMessage());

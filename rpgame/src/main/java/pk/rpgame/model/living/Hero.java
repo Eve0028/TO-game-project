@@ -1,6 +1,7 @@
 package pk.rpgame.model.living;
 
 import pk.rpgame.Visitor;
+import pk.rpgame.model.items.Armor;
 import pk.rpgame.model.items.Item;
 import pk.rpgame.model.living.state.HealthStatus;
 
@@ -20,9 +21,6 @@ public class Hero extends LivingEntity {
 
     @Override
     public double dealDamage() {
-        // TODO:
-        // Return damage from hero and his weapon
-
         return this.getStrength();
     }
 
@@ -40,8 +38,6 @@ public class Hero extends LivingEntity {
     }
 
     public double getArmor() {
-        // TODO:
-        // Sum all armor from all armor items
 
         return armor;
     }

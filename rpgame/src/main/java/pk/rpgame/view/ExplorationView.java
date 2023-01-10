@@ -1,17 +1,11 @@
 package pk.rpgame.view;
 
 import pk.rpgame.model.Room;
+import pk.rpgame.model.items.Item;
+
 import java.util.List;
 import java.util.Scanner;
 
-interface MenuClickListener {
-  void onActionClick(int num);
-}
-
-enum PickUpItems {
-  PICK_UP,
-  DONT_PICK_UP
-}
 
 public class ExplorationView {
 
@@ -19,12 +13,8 @@ public class ExplorationView {
 
   public void printRoomDescription(Room room) {
     System.out.println("You are in a room called " + room.getName());
-    if (room.getCreatures().isEmpty()) {
       System.out.println("You are safe in this room. There are no monsters here.");
-    } else {
-      System.out.println("There are several monsters in this room: " + room.getCreatures());
-      System.out.println("A fight will start soon!");
-    }
+
   }
 
   public void setListener(MenuClickListener listener) {
@@ -33,8 +23,8 @@ public class ExplorationView {
 
   private int getAction() {
     Scanner keyboard = new Scanner(System.in);
-    int action = keyboard.nextInt();
-    keyboard.close();
+    Integer action = keyboard.nextInt();
+
     return action;
   }
 
@@ -58,7 +48,11 @@ public class ExplorationView {
     return action;
   }
 
-  public PickUpItems pickUpItems() {
+  public PickUpItems pickUpItems( List<Item> items) {
+    for (Item item :items
+    ) {
+      System.out.println("You found "+item.getName());
+    }
     System.out.println(
         "You can pick up the item you found. Choose '1' to pick them or '0' to do nothing.");
     System.out.println(
@@ -76,6 +70,18 @@ public class ExplorationView {
     }
   }
 
+  public void wrongChoice(){
+    System.out.println("Wrong choice!!");
+  }
+  public void addToInventory(Item item){
+    System.out.println(item.getName().toUpperCase()+" was added to your inventory.");
+  }
+  public void nothingFound(){
+    System.out.println("You found nothing!");
+  }
+  public void somethingFoundMessage(Item item){
+    System.out.println("You found "+item.getName());
+  }
   public void showMenu() {
     System.out.println("1. Explore this room");
     System.out.println("2. Go to the next room");
