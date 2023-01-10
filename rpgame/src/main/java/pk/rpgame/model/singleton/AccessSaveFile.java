@@ -46,7 +46,7 @@ public class AccessSaveFile {
 
         if (file.canWrite()) {
             try {
-                FileWriter fw = new FileWriter(file, false);
+                FileWriter fw = new FileWriter(file, true);
                 BufferedWriter writer = new BufferedWriter(fw);
 
                 writer.write("Hero name: " + name + "\n");
