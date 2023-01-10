@@ -1,0 +1,7 @@
+!!!!Hall of fame!!!!
+Hero name: Janek
+Hero HP was equal: 64.0
+Hero strength was equal: 10.0
+
+In his inventory was: 
+Item name: potion

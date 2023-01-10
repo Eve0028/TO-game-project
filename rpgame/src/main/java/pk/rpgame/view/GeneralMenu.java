@@ -1,30 +1,22 @@
 package pk.rpgame.view;
 
 import java.util.List;
-import java.util.Scanner;
 
 import pk.rpgame.model.items.Item;
-import pk.rpgame.model.items.UsableItem;
 import pk.rpgame.model.living.Hero;
 
-public class GeneralMenu{
+public class GeneralMenu implements IView {
   private MenuClickListener listener;
 
   public void setListener(MenuClickListener listener) {
     this.listener = listener;
   }
 
-  private int getAction() {
-    Scanner keyboard = new Scanner(System.in);
-    Integer action = keyboard.nextInt();
-    return action;
-  }
-
   public void printInventory(List<Item> items) {
     System.out.println("Here are the items in your inventory: ");
     int i = 1;
     for (Item item : items) {
-      System.out.println(i + ". " + item.getName()+"\n");
+      System.out.println(i + ". " + item.getName() + "\n");
       i++;
     }
   }
@@ -32,7 +24,8 @@ public class GeneralMenu{
   public void printNoPotionMessage() {
     System.out.println("You have no health potion in your inventory!");
   }
-  public void endGameMessage(){
+
+  public void endGameMessage() {
     System.out.println("Shutdown a game!");
   }
 
@@ -60,18 +53,22 @@ public class GeneralMenu{
     System.out.println("You currently have " + hero.getHealth() + " health points");
   }
 
-  public void fullHpMessage(){
+  public void fullHpMessage() {
     System.out.println("Your HP is full.");
   }
 
-  public void printNothingMessageInInventory(){System.out.println("Your inventory is empty");}
-  public void printMaxHealthMessage(){
+  public void printNothingMessageInInventory() {
+    System.out.println("Your inventory is empty");
+  }
+
+  public void printMaxHealthMessage() {
     System.out.println("Max health");
   }
 
-  public void wrongChoice(){
+  public void wrongChoice() {
     System.out.println("Wrong choice!!");
   }
+
   public void showMenu() {
     System.out.println("1. Show inventory");
     System.out.println("2. Use health potion");

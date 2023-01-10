@@ -8,27 +8,18 @@ import pk.rpgame.model.items.Item;
 import pk.rpgame.model.living.Hero;
 import pk.rpgame.model.living.LivingEntity;
 
-
-
-public class FightView {
+public class FightView implements IView {
 
   private MenuClickListener listener;
 
   public void printRoomDescription(Room room) {
     System.out.println("You are in a room called " + room.getName());
-      System.out.println("There are several monsters in this room.");
-      System.out.println("A fight will start soon!");
+    System.out.println("There are several monsters in this room.");
+    System.out.println("A fight will start soon!");
   }
 
   public void setListener(MenuClickListener listener) {
     this.listener = listener;
-  }
-
-
-  private int getAction() {
-    Scanner keyboard = new Scanner(System.in);
-    int action = keyboard.nextInt();
-    return action;
   }
 
   public void printEnemies(List<LivingEntity> monsters) {
@@ -87,27 +78,31 @@ public class FightView {
     return action;
   }
 
-  public void printNothingMessageInInventory(){System.out.println("Your inventory is empty");}
+  public void printNothingMessageInInventory() {
+    System.out.println("Your inventory is empty");
+  }
+
   public void printAttackResult(String attackerName, String deffenderName, double damage) {
     System.out.println(attackerName + " attacked " + deffenderName + " dealing " + damage + " damage.");
   }
 
-  public void wrongChoice(){
+  public void wrongChoice() {
     System.out.println("Wrong choice!!");
   }
 
-  public void fullHpMessage(){
+  public void fullHpMessage() {
     System.out.println("Your HP is full.");
   }
-  public void endGameMessage(){
+
+  public void endGameMessage() {
     System.out.println("Shutdown a game!");
   }
 
-  public void blockHero(LivingEntity monster){
-    System.out.println("You block attack form "+monster.getName());
+  public void blockHero(LivingEntity monster) {
+    System.out.println("You block attack form " + monster.getName());
   }
 
-  public void winRoom(){
+  public void winRoom() {
     System.out.println("You defeat them all!");
   }
 
