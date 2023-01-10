@@ -52,14 +52,14 @@ public class AccessSaveFile {
                 writer.write("Hero name: " + name + "\n");
                 writer.write("Hero HP was equal: " + HP.toString() + "\n");
                 writer.write("Hero strength was equal: " + strength.toString() + "\n");
-                writer.write("\nIn his inventory was: \n");
+                writer.write("\nTheir inventory contained: \n");
 
                 for (Item item : items) {
-                    writer.write("Item name: " + item.getName());
+                    writer.write("Item name: " + item.getName() + "\n");
 
                 }
 
-                // zamknięcie pliku
+                writer.write("\n====================\n\n");
                 writer.close();
                 fw.close();
             } catch (Exception e) {
