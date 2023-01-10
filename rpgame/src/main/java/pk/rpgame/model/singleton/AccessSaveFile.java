@@ -5,9 +5,7 @@ import pk.rpgame.model.items.Item;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Formatter;
 import java.util.List;
-import java.util.Scanner;
 
 public class AccessSaveFile {
     private static AccessSaveFile instance = null;
@@ -25,18 +23,30 @@ public class AccessSaveFile {
         return instance;
     }
 
-    public void saveData(String name, Double HP, Double strength, List<Item> items) {
+    private void fillSaveFileIfNotExist() {
         if (!file.exists()) {
             try {
                 file.createNewFile();
+                FileWriter fw = new FileWriter(file, false);
+                BufferedWriter writer = new BufferedWriter(fw);
+
+                writer.write("!!!!Hall of fame!!!!\n");
+                writer.write("\n====================\n\n");
+
+                writer.close();
+                fw.close();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    public void saveData(String name, Double HP, Double strength, List<Item> items) {
+        fillSaveFileIfNotExist();
 
         if (file.canWrite()) {
             try {
-                FileWriter fw = new FileWriter(file, true);
+                FileWriter fw = new FileWriter(file, false);
                 BufferedWriter writer = new BufferedWriter(fw);
 
                 writer.write("Hero name: " + name + "\n");
@@ -45,11 +55,11 @@ public class AccessSaveFile {
                 writer.write("\nIn his inventory was: \n");
 
                 for (Item item : items) {
-                    writer.write("Item name: " + item.getName() + "\n");
+                    writer.write("Item name: " + item.getName());
 
                 }
 
-                writer.write("\n====================\n\n");
+                // zamknięcie pliku
                 writer.close();
                 fw.close();
             } catch (Exception e) {
@@ -59,6 +69,8 @@ public class AccessSaveFile {
     }
 
     public List<String> loadData() {
+        fillSaveFileIfNotExist();
+
         try {
             List<String> fileList = Files.readAllLines(Paths.get("data.txt"));
             return fileList;
