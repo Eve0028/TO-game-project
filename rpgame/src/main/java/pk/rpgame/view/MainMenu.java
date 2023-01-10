@@ -6,6 +6,8 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 
+import pk.rpgame.model.singleton.AccessSaveFile;
+
 public class MainMenu {
   private MenuClickListener listener;
 
@@ -36,13 +38,9 @@ public class MainMenu {
   }
 
   public void printHallOfFame() {
-    try {
-      List<String> lines = Files.readAllLines(Paths.get("data.txt"));
-      for (String line : lines) {
-        System.out.println(line);
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
+    List<String> lines = AccessSaveFile.getInstance().loadData();
+    for (String line : lines) {
+      System.out.println(line);
     }
   }
 
