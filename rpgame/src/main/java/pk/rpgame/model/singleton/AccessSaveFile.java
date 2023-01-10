@@ -45,7 +45,6 @@ public class AccessSaveFile {
         fillSaveFileIfNotExist();
 
         if (file.canWrite()) {
-        if (file.canWrite()) {
             try {
                 FileWriter fw = new FileWriter(file, true);
                 BufferedWriter writer = new BufferedWriter(fw);
