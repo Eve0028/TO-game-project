@@ -161,6 +161,8 @@ public class FightController extends Controller implements MenuClickListener {
                     double healthDifference=heroControler.getHealth()-heroControler.getMaxHealth();
                     heroControler.setHealth(heroControler.getHealth()-healthDifference);
                 }
+                itemInventory.remove(item);
+                heroControler.setItems(itemInventory);
                 fightViewController.printHeroHealth(heroControler);
                 fightViewController.showMenu();
         } else if (heroControler.getHealth()==heroControler.getMaxHealth()) {
@@ -176,6 +178,7 @@ public class FightController extends Controller implements MenuClickListener {
     }
 
     public void escape(){
+        activeLevelMapController.changeRooms(room,previousRoom);
         gameEngine.changeStateControler(new ExplorationController(heroControler,map,previousRoom,
                 activeLevelMapController,gameEngine));
     }

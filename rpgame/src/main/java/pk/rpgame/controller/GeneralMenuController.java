@@ -104,6 +104,8 @@ public class GeneralMenuController extends Controller implements MenuClickListen
                 double healthDifference=heroControler.getHealth()-heroControler.getMaxHealth();
                 heroControler.setHealth(heroControler.getHealth()-healthDifference);
             }
+            itemInventory.remove(item);
+            heroControler.setItems(itemInventory);
             generalMenu.printHeroHealth(heroControler);
             generalMenu.showMenu();
         }  else if (!itemInventory.contains(UsableItem.class)) {
