@@ -47,7 +47,8 @@ public class GameEngine {
 
     public void startGame() throws Exception {
 
-        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         controllerState.initView();
     }
 
