@@ -47,6 +47,7 @@ public class GameEngine {
 
     public void startGame() throws Exception {
 
+        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
         controllerState.initView();
     }
 
