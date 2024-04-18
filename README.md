@@ -25,3 +25,13 @@ Stworznie tekstowej (lub częściowo graficznej) gry przygodowej bazującej na w
 - <b>Odwiedzający</b> - różne typy obiektów mogą oddziaływać na inne (np. opcja ataku przez bohatera innego npc będzie miała inne działanie w zależności od rodzaju atakowanego npc, lub użycie różnych rodzajów przedmotów przyniesie różne skutki);
 - <b>Stan</b> (dodatkowy) - npc mogą posiadać stany np. wróg/przyjaciel - są one zmienialne w zależności od zachowania bohatera względem npc;
 - <b>Strategia</b> (dodatkowy) - akcja użytkownika podczas walki turowej może przyjmować określoną akcje (strategie) ze zbioru np.: <em>atak</em>, <em>obrona</em>, <em>uzdrowienie</em>.
+
+### GUI - screenshots
+#### New game
+<img src="/images/game_new_journey_1.png" alt="new_journey" width="370"/> <img src="/images/game_items_2.png" alt="pickup_item" width="550"/>
+
+#### Fight with monsters
+<img src="/images/game_next_room_monsters_3.png" alt="next_room" width="305"/> <img src="/images/game_monster_fight_4.png" alt="fight" width="335"/> <img src="/images/game_monster_fight_block_potion_use_5.png" alt="fight_block_potion_use" width="280"/>
+
+#### Map
+<img src="/images/game_map_6.png" alt="game_map" width="370"/>
