@@ -25,6 +25,3 @@ Stworznie tekstowej (lub częściowo graficznej) gry przygodowej bazującej na w
 - <b>Odwiedzający</b> - różne typy obiektów mogą oddziaływać na inne (np. opcja ataku przez bohatera innego npc będzie miała inne działanie w zależności od rodzaju atakowanego npc, lub użycie różnych rodzajów przedmotów przyniesie różne skutki);
 - <b>Stan</b> (dodatkowy) - npc mogą posiadać stany np. wróg/przyjaciel - są one zmienialne w zależności od zachowania bohatera względem npc;
 - <b>Strategia</b> (dodatkowy) - akcja użytkownika podczas walki turowej może przyjmować określoną akcje (strategie) ze zbioru np.: <em>atak</em>, <em>obrona</em>, <em>uzdrowienie</em>.
-
-<br>
-Trudno z góry określić rodzaje wzorców, które będą użyte w aplikacji. Zwłaszcza wzorców behawioralnych (mogą one ulec zmianie w trakcie pracy nad kodem).
